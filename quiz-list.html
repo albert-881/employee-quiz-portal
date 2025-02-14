@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZZES</title>
+    <link rel="stylesheet" href="styles1.css">
+
+    <script type="module" src="js/ui.js" defer></script>
+</head>
+<body>
+    <h1>Quizzes</h1>
+    <div id="quiz-list"></div>
+
+    <script type="module">
+        import { showQuizzes } from "./js/ui.js";
+        document.addEventListener("DOMContentLoaded", showQuizzes);
+    </script>
+</body>
+</html>

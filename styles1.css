@@ -1,0 +1,93 @@
+/* Styling for quiz cards */
+.quiz-card {
+    background-color: #ffffff; /* White background for each card */
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+    animation: fadeInUp 1s ease-out forwards; /* Animation on load */
+}
+
+/* Hover effect for quiz cards */
+.quiz-card:hover {
+    transform: translateY(-10px); /* Slight lift on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
+
+/* Styling for quiz name */
+.quiz-card h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    transition: color 0.3s ease; /* Smooth transition for color */
+}
+
+/* Hover effect for quiz name */
+.quiz-card:hover h3 {
+    color: #4CAF50; /* Green color on hover */
+}
+
+/* Styling for quiz description */
+.quiz-card p {
+    font-size: 16px;
+    color: #777; /* Lighter gray for the description */
+    margin-bottom: 20px;
+}
+
+/* Styling for start button */
+.start-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover and click transition */
+}
+
+/* Hover effect for start button */
+.start-btn:hover {
+    background-color: #45a049; /* Slightly darker green */
+    transform: scale(1.05); /* Slight scaling on hover */
+}
+
+/* Active state for start button */
+.start-btn:active {
+    background-color: #388e3c; /* Darker green on click */
+    transform: scale(0.98); /* Slight shrink on click */
+}
+
+/* Keyframes for fading in quiz cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .quiz-card {
+        padding: 15px;
+    }
+
+    .quiz-card h3 {
+        font-size: 20px;
+    }
+
+    .quiz-card p {
+        font-size: 14px;
+    }
+
+    .start-btn {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
