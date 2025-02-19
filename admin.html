@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Quiz Management</title>
+    <link rel="stylesheet" href="styles2.css">
+    <script type="module" src="js/admin.js" defer></script>
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Quiz Management</h1>
+
+        
+        <div class="add-quiz">
+            <h2>Add New Quiz</h2>
+            <form id="quiz-form">
+                <input type="text" id="quiz-name" placeholder="Quiz Name" required>
+                <textarea id="quiz-desc" placeholder="Quiz Description" required></textarea>
+                <button type="submit" class="btn">Add Quiz</button>
+            </form>
+        </div>
+
+        
+        <div id="quiz-list"></div>
+    </div>
+</body>
+</html>
