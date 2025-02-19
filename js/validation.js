@@ -1,8 +1,7 @@
-const loginVerification = document.querySelector('#login-form');
-const errorMSG = document.createElement('p');
+import { errorMSG } from "./ui.js";
 
 const validEmail = 'quinteroalberto88@gmail.com';
-const validPassword = '1234';
+const validPassword = '1234'; 
 
 export function test() {
   let email = document.querySelector('#email').value;
@@ -19,9 +18,6 @@ export function verify(e, p) {
     window.location.href = 'quiz-list.html';
   } 
   else {
-    errorMSG.innerHTML = '';
-    errorMSG.innerHTML = 'Invalid Email or Password';
-    loginVerification.appendChild(errorMSG);
-    
+    errorMSG();
   }
 }

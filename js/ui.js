@@ -1,3 +1,6 @@
+const loginVerification = document.querySelector('#login-form');
+const message = document.createElement('p');
+
 export function showQuizzes() {
     const quizlistContainer = document.querySelector('#quiz-list');
     if (!quizlistContainer) return; // Prevent errors if element is missing
@@ -30,4 +33,10 @@ export function showQuizzes() {
         quizCard.appendChild(startBtn);
         quizlistContainer.appendChild(quizCard);
     });
+}
+
+export function errorMSG(){
+    message.innerHTML = '';
+    message.innerHTML = 'Invalid Email or Password';
+    loginVerification.appendChild(message);
 }
