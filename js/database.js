@@ -1,7 +1,8 @@
-    export function createQuiz(name, description) {
+    export function createQuiz(name, description,role) {
         return {
             quizName: name,
-            quizDescription: description
+            quizDescription: description,
+            role:role
         };
     }
     

@@ -1,4 +1,5 @@
 import { saveQuiz } from "./database.js";
+import { createQuiz } from "./database.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -95,8 +96,27 @@ export function showMenu() {  // "showMenu" is a more intuitive name for the men
         
         let quizDescription = prompt('Enter a description for your quiz');
         console.log(`Description: ${quizDescription}`);
+
+        let quizRole = prompt('Who is this quiz tailored to?\n1: Software Engineering\n2: Nurse\n3: CNA\n4: RV/LVM');
+        if(quizRole === '1'){
+            quizRole = 'software engineer';
+        }
+        else if(quizRole === '2'){
+            quizRole = 'nurse';
+        }
+        else if(quizRole === '3'){
+            quizRole = 'cna';
+        }
+        else if(quizRole === '4'){
+            quizRole = 'rvlvm';
+        }
+        else{
+            alert('invalid option');
+        }
         
-        let newQuiz = createQuiz(quizName, quizDescription);
+        console.log(`Role: ${quizRole}`);
+        
+        let newQuiz = createQuiz(quizName, quizDescription, quizRole);
         saveQuiz(newQuiz);
     
 }

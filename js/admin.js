@@ -1,5 +1,6 @@
 import { saveEmployee } from "./database.js";
 
+
 const userForm = document.querySelector('#user-form');
 const userNameInput = document.querySelector('#user-name');
 const userRoleInput = document.querySelector('#user-role');
@@ -18,7 +19,8 @@ userForm.addEventListener('submit', (e) => {
     let user = userNameInput.value;
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
-    console.log(`User: ${user}\nRole: ${role}\nPassword: ${tempPassword}`);
+    
+    console.log(`User: ${user}\nPassword: ${tempPassword}\nRole: ${role}`);
     saveEmployee(user,role,tempPassword);
 });
 
@@ -26,5 +28,6 @@ assignQuizBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log('assign new quiz button works');
 });
+
 
 
