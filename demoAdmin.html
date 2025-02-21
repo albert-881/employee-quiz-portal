@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Quiz Management</title>
+    <link rel="stylesheet" href="demoAdmin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Quiz Management</h1>
+
+        <!-- Add New User Section -->
+        <div class="add-user">
+            <h2>Create New User</h2>
+            <form id="user-form">
+                <input type="text" id="user-name" placeholder="User Name" required>
+
+                <input type="password" id="user-password" placeholder="Temporary Password" required>
+                <select id="user-role" required>
+                    <option value="" disabled selected>Select Role</option>
+                    <option value="software engineer">Software Engineer</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="cna">CNA</option>
+                    <option value="rvlvm">RV/LVM</option>
+                </select>
+                <button type="submit" class="btn">Create User</button>
+            </form>
+        </div>
+
+        <!-- Assign Quizzes to Users Section -->
+        <div class="assign-quiz">
+            <h2>Assign Quiz to User</h2>
+            <select id="user-select">
+                <option value="" disabled selected>Select User</option>
+                <!-- Users will be populated here -->
+            </select>
+            <select id="quiz-select">
+                <option value="" disabled selected>Select Quiz</option>
+                <!-- Quizzes will be populated here -->
+            </select>
+            <button id="assign-quiz-btn" class="btn">Assign Quiz</button>
+        </div>
+
+        <!-- Display Saved Quizzes Section -->
+        <div id="quiz-list">
+            <h2>Saved Quizzes</h2>
+            <ul id="quiz-list-items">
+                <!-- Quizzes will be listed here -->
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin.js" defer></script>
+    <script type="module">
+        import { showadminQuizzes } from "./js/ui.js"
+        document.addEventListener("DOMContentLoaded", showadminQuizzes);
+    </script>
+</body>
+</html>

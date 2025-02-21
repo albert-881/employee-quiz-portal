@@ -1,0 +1,150 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Container */
+.admin-container {
+    max-width: 900px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Headings */
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+/* Form Styling */
+.add-user, .assign-quiz {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* Button Styling */
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.btn:active {
+    background-color: #388e3c;
+    transform: scale(0.98);
+}
+
+/* User Section */
+.add-user form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-user input {
+    margin-bottom: 20px;
+}
+
+/* Assign Quiz Section */
+.assign-quiz form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+select {
+    width: 80%;
+    padding: 10px;
+    margin: 15px 0;
+}
+
+/* Quiz List */
+#quiz-list {
+    margin-top: 40px;
+}
+
+#quiz-list-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.quiz-card {
+    background-color: #eee9e9;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quiz-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-card h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.quiz-card:hover h3 {
+    color: #4CAF50;
+}
+
+.quiz-card p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* Keyframes for fade-in effect */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

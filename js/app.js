@@ -1,13 +1,13 @@
 import { setCredentails } from "./validation.js";
-import { startDatabase } from "./database.js";
+import { showMenu } from "./ui.js";
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    let navigation = prompt('If you are the developer would you like to create a quiz or create a new user?');
+    let navigation = prompt('If you are the developer would you like to create a quiz');
     if(navigation === 'yes'){
-        startDatabase();
+        showMenu();
     }
 
     const loginVerification = document.querySelector('#login-form');

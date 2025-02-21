@@ -21,7 +21,7 @@ export function verify(e, p) {
     window.location.href = 'quiz-list.html';
   }
   else if (e === validAdminEmail && p === validAdminPassword){
-    window.location.href = 'admin.html';
+    window.location.href = 'demoAdmin.html';
   }
   else {
     errorMSG();
