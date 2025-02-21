@@ -6,10 +6,10 @@ const validPassword = '1234';
 const validAdminEmail = 'admin@123.com';
 const validAdminPassword = '4321';
 
-export function test() {
+export function setCredentails() {
   let email = document.querySelector('#email').value;
   let password = document.querySelector('#password').value;
-  console.log('test function works');
+  console.log('setCredentials function works');
   verify(email, password);
 }
 

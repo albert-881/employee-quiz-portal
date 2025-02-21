@@ -35,6 +35,11 @@ export function showQuizzes() {
     });
 }
 
+
+//export function startQuiz
+//export function resultsQuiz
+
+
 export function errorMSG(){
     message.innerHTML = '';
     message.innerHTML = 'Invalid Email or Password';
