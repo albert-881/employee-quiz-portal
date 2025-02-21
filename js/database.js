@@ -1,3 +1,5 @@
+    import { assignRole } from "./admin.js";
+    
     export function createQuiz(name, description,role) {
         return {
             quizName: name,
@@ -9,8 +11,8 @@
     function createEmployee(name, role, password) {
         return {
             name: name,
-            role: role,
-            password:password
+            password:password,
+            role: role
         };
     }
 
@@ -26,7 +28,8 @@
         let newEmp = createEmployee(name,role,password);
         let employees = JSON.parse(localStorage.getItem('employees')) || [];  // "employees" is plural
         employees.push(newEmp);
-        localStorage.setItem('employees', JSON.stringify(employees));  // Update with plural name "employees"
+        localStorage.setItem('employees', JSON.stringify(employees)); 
+        assignRole(role,name)
         console.log(employees);
     }
 

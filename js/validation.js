@@ -1,7 +1,7 @@
 import { errorMSG } from "./ui.js";
 
-const validEmail = 'quinteroalberto88@gmail.com';
-const validPassword = '1234'; 
+//this will be used to go through the employees and see if the email and password exist and will direct them to their tailored webpage
+let employees = JSON.parse(localStorage.getItem('employees')) || []; 
 
 const validAdminEmail = 'admin@123.com';
 const validAdminPassword = '4321';
