@@ -22,6 +22,8 @@ userForm.addEventListener('submit', (e) => {
     
     console.log(`User: ${user}\nPassword: ${tempPassword}\nRole: ${role}`);
     saveEmployee(user,role,tempPassword);
+    // Call assignRole after employee is saved
+    
 });
 
 assignQuizBtn.addEventListener('click', (e) => {
@@ -29,27 +31,3 @@ assignQuizBtn.addEventListener('click', (e) => {
     console.log('assign new quiz button works');
 });
 
-export function assignRole(role, user) {
-    let quizzes = JSON.parse(localStorage.getItem('quiz')) || [];
-    let employees = JSON.parse(localStorage.getItem('employees')) || [];
-
-    // Find the user to assign quizzes
-    let selectedUser = employees.find(emp => emp.name === user);
-
-    if (!selectedUser) {
-        console.log('User not found!');
-        return;
-    }
-
-    // Filter quizzes based on role
-    let assignedQuizzes = quizzes.filter(quiz => quiz.role === role);
-
-    // Assign quizzes to the user
-    selectedUser.assignedQuizzes = assignedQuizzes;
-
-    // Save the updated employees array to localStorage
-    localStorage.setItem('employees', JSON.stringify(employees));
-
-    
-    console.log(employees);
-}

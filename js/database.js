@@ -1,5 +1,5 @@
-    import { assignRole } from "./admin.js";
     
+
     export function createQuiz(name, description,role) {
         return {
             quizName: name,
@@ -29,9 +29,7 @@
         let employees = JSON.parse(localStorage.getItem('employees')) || [];  // "employees" is plural
         employees.push(newEmp);
         localStorage.setItem('employees', JSON.stringify(employees)); 
-        assignRole(role,name)
         console.log(employees);
     }
 
 
-   

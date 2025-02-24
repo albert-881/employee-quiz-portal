@@ -9,9 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(navigation === 'yes'){
         showMenu();
     }
-    else{
-        return;
-    }
+    
 
     const loginVerification = document.querySelector('#login-form');
     
