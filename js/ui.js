@@ -1,128 +1,87 @@
-import { saveQuiz } from "./database.js";
-import { createQuiz } from "./database.js";
+import { saveQuiz, createQuiz } from "./database.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
 
+// Display quizzes for regular users
 export function showQuizzes() {
     const quizlistContainer = document.querySelector('#quiz-list');
     if (!quizlistContainer) return; // Prevent errors if element is missing
 
     quizlistContainer.innerHTML = ''; // Clear previous content
-
     let quiz = JSON.parse(localStorage.getItem('quiz')) || [];
 
-    console.log('Loaded quizzes from storage:', quiz); // Debugging
+    console.log('Loaded quizzes from storage:', quiz);
 
     quiz.forEach(q => {
         const quizCard = document.createElement('div');
         quizCard.classList.add('quiz-card');
 
-        const quizName = document.createElement('h3');
-        quizName.textContent = q.name;
+        quizCard.innerHTML = `
+            <h3>${q.quizName}</h3>
+            <p>${q.quizDescription}</p>
+            <button class="start-btn">Start Quiz</button>
+        `;
 
-        const quizDesc = document.createElement('p');
-        quizDesc.textContent = q.desc;
-
-        const startBtn = document.createElement('button');
-        startBtn.textContent = 'Start Quiz';
-        startBtn.classList.add('start-btn');
-        startBtn.addEventListener('click', () => {
-            alert(`Starting quiz: ${q.name}`);
+        quizCard.querySelector('.start-btn').addEventListener('click', () => {
+            alert(`Starting quiz: ${q.quizName}`);
         });
 
-        quizCard.appendChild(quizName);
-        quizCard.appendChild(quizDesc);
-        quizCard.appendChild(startBtn);
         quizlistContainer.appendChild(quizCard);
     });
 }
 
+// Display quizzes for the admin panel
 export function showadminQuizzes() {
     const adminquizContainer = document.querySelector('#quiz-list-items');
-    if (!adminquizContainer) return; // Prevents errors if the element is missing
+    if (!adminquizContainer) return;
 
-    adminquizContainer.innerHTML = ''; // Clears previous content
+    adminquizContainer.innerHTML = ''; // Clear previous content
+    let quizzes = JSON.parse(localStorage.getItem('quiz')) || [];
 
-    let quizzes = JSON.parse(localStorage.getItem('quiz')) || []; // Retrieve quizzes
+    console.log('Loaded quizzes from storage:', quizzes);
 
-    console.log('Loaded quizzes from storage:', quizzes); // Debugging
-
-    // Display message if no quizzes are found
     if (quizzes.length === 0) {
-        const noQuizMessage = document.createElement('p');
-        noQuizMessage.textContent = "No quizzes available.";
-        adminquizContainer.appendChild(noQuizMessage);
+        adminquizContainer.innerHTML = "<p>No quizzes available.</p>";
         return;
     }
 
-    // Loop through each quiz and create a card
     quizzes.forEach(quiz => {
-        // Create card container
         const quizCard = document.createElement('div');
         quizCard.classList.add('quiz-card');
 
-        // Quiz Title
-        const quizName = document.createElement('h3');
-        quizName.textContent = quiz.quizName || "Unnamed Quiz";
+        quizCard.innerHTML = `
+            <h3>${quiz.quizName || "Unnamed Quiz"}</h3>
+            <p>${quiz.quizDescription || "No description available."}</p>
+            <button class="btn">View Quiz</button>
+        `;
 
-        // Quiz Description
-        const quizDesc = document.createElement('p');
-        quizDesc.textContent = quiz.quizDescription || "No description available.";
-
-        // Start Quiz Button
-        const startBtn = document.createElement('button');
-        startBtn.textContent = 'View Quiz';
-        startBtn.classList.add('btn'); // Use the same `.btn` class for styling
-        startBtn.addEventListener('click', () => {
+        quizCard.querySelector('.btn').addEventListener('click', () => {
             alert(`Viewing quiz: ${quiz.quizName}`);
         });
 
-        // Append elements to card
-        quizCard.appendChild(quizName);
-        quizCard.appendChild(quizDesc);
-        quizCard.appendChild(startBtn);
-
-        // Append card to container
         adminquizContainer.appendChild(quizCard);
     });
 }
 
-export function showMenu() {  // "showMenu" is a more intuitive name for the menu function
-        
-    
-        let quizName = prompt('Enter the name of the new quiz');
-        console.log(`Quiz name: ${quizName}`);
-        
-        let quizDescription = prompt('Enter a description for your quiz');
-        console.log(`Description: ${quizDescription}`);
+// Developer menu for creating quizzes
+export function showMenu() {  
+    let quizName = prompt('Enter the name of the new quiz');
+    let quizDescription = prompt('Enter a description for your quiz');
+    let quizRole = prompt('Who is this quiz for?\n1: Software Engineer\n2: Nurse\n3: CNA\n4: RV/LVM');
 
-        let quizRole = prompt('Who is this quiz tailored to?\n1: Software Engineering\n2: Nurse\n3: CNA\n4: RV/LVM');
-        if(quizRole === '1'){
-            quizRole = 'software engineer';
-        }
-        else if(quizRole === '2'){
-            quizRole = 'nurse';
-        }
-        else if(quizRole === '3'){
-            quizRole = 'cna';
-        }
-        else if(quizRole === '4'){
-            quizRole = 'rvlvm';
-        }
-        else{
-            alert('invalid option');
-        }
-        
-        console.log(`Role: ${quizRole}`);
-        
-        let newQuiz = createQuiz(quizName, quizDescription, quizRole);
-        saveQuiz(newQuiz);
-    
+    const roles = { '1': 'software engineer', '2': 'nurse', '3': 'cna', '4': 'rvlvm' };
+    quizRole = roles[quizRole] || alert('Invalid option');
+
+    if (!quizRole) return; // Exit if role selection was invalid
+
+    console.log(`Creating Quiz: ${quizName} | ${quizDescription} | Role: ${quizRole}`);
+    let newQuiz = createQuiz(quizName, quizDescription, quizRole);
+    saveQuiz(newQuiz);
 }
 
-export function errorMSG(){
-    message.innerHTML = '';
-    message.innerHTML = 'Invalid Email or Password';
+// Display error message on invalid login
+export function errorMSG() {
+    message.textContent = 'Invalid Email or Password';
     loginVerification.appendChild(message);
 }
