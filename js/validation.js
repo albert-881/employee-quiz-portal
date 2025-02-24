@@ -1,16 +1,18 @@
 import { errorMSG } from "./ui.js";
+
 const adminEmail = 'quinteroalberto88@gmail.com';
 const adminPassword = '4321';
 
 // This file is responsible for verifying login credentials 
 // and directing users to their appropriate pages
 
-// Function to retrieve user-entered credentials and start verification
 export function setCredentails() {
   let email = document.querySelector('#email').value;  
   let password = document.querySelector('#password').value;
 
-  if(email === adminEmail && password === adminPassword){
+  // Check if the user is an admin
+  if (email === adminEmail && password === adminPassword) {
+    localStorage.setItem('loggedInUser', email);  // Store admin email
     window.location.href = 'demoAdmin.html';
     return;
   }
@@ -29,22 +31,24 @@ export function setCredentails() {
         console.log('Password correct, logging in...');
 
         userFound = true;
-        // Redirect
-        window.location.href = 'quiz-list.html';  // Regular user page
         
-        break;  // Exit loop after successful login
+        // Store the logged-in user in localStorage
+        localStorage.setItem('loggedInUser', email);
+
+        // Redirect user to the quiz page
+        window.location.href = 'quiz-list.html';
+        return;
       } 
       else {
         console.log('Incorrect password');
-        errorMSG();  
+        errorMSG();
         return; 
       }
     }
   }
 
-  
   if (!userFound) {
     console.log('User not found');
-    errorMSG(); 
+    errorMSG();
   }
 }
