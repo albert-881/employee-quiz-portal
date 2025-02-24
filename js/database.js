@@ -24,11 +24,17 @@ export function saveQuiz(newQuiz) {
     console.log(quiz);
 }
 
-// Save employee data to localStorage
 export function saveEmployee(name, role, password) {
     let newEmp = createEmployee(name, role, password);
     let employees = JSON.parse(localStorage.getItem('employees')) || [];
+
+    // Get all quizzes that match the user's role
+    let quizzes = JSON.parse(localStorage.getItem('quiz')) || [];
+    newEmp.assignedQuizzes = quizzes.filter(quiz => quiz.role === role);
+
+    // Add the new employee with assigned quizzes
     employees.push(newEmp);
     localStorage.setItem('employees', JSON.stringify(employees));
-    console.log(employees);
+
+    console.log(`User ${name} created and assigned quizzes:`, newEmp.assignedQuizzes);
 }
