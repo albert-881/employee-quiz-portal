@@ -16,12 +16,30 @@ function createEmployee(name, role, password) {
     };
 }
 
-// Save quiz data to localStorage
+// Save quiz data to localStorage and assign it to users with the same role
 export function saveQuiz(newQuiz) {
+    // Retrieve the existing quizzes and employees
     let quiz = JSON.parse(localStorage.getItem('quiz')) || [];
+    let employees = JSON.parse(localStorage.getItem('employees')) || [];
+    
+    // Add the new quiz to the quizzes array
     quiz.push(newQuiz);
-    localStorage.setItem('quiz', JSON.stringify(quiz));
-    console.log(quiz);
+    localStorage.setItem('quiz', JSON.stringify(quiz));  // Save the new quiz
+
+    // Loop through employees to assign the new quiz based on their role
+    employees.forEach(employee => {
+        if (employee.role === newQuiz.role) {  // Check if employee's role matches quiz role
+            if (!employee.assignedQuizzes) {
+                employee.assignedQuizzes = [];  // Initialize assigned quizzes if not already set
+            }
+            employee.assignedQuizzes.push(newQuiz);  // Assign the new quiz to the user
+        }
+    });
+
+    // Save the updated employees list back to localStorage
+    localStorage.setItem('employees', JSON.stringify(employees));
+
+    console.log('Quiz assigned to users:', newQuiz);
 }
 
 export function saveEmployee(name, role, password) {

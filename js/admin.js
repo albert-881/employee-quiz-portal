@@ -6,12 +6,10 @@ const userForm = document.querySelector('#user-form');
 const userNameInput = document.querySelector('#user-name');
 const userRoleInput = document.querySelector('#user-role');
 const userTempPassword = document.querySelector('#user-password');
-
 // Select elements for quiz assignment
 const assignQuizBtn = document.querySelector('#assign-quiz-btn');
 const quizSelect = document.querySelector('#quiz-select');
 const userSelect = document.querySelector('#user-select');
-
 // Select elements for quiz list & creation (if needed)
 const quizListItems = document.querySelector('#quiz-list-items');
 const quizForm = document.querySelector('#quiz-form');
