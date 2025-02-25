@@ -58,8 +58,6 @@ export function showadminQuizzes() {
     adminquizContainer.innerHTML = ''; // Clear previous content
     let quizzes = JSON.parse(localStorage.getItem('quiz')) || [];
 
-    console.log('Loaded quizzes from storage:', quizzes);
-
     if (quizzes.length === 0) {
         adminquizContainer.innerHTML = "<p>No quizzes available.</p>";
         return;

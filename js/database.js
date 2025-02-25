@@ -38,8 +38,6 @@ export function saveQuiz(newQuiz) {
 
     // Save the updated employees list back to localStorage
     localStorage.setItem('employees', JSON.stringify(employees));
-
-    console.log('Quiz assigned to users:', newQuiz);
 }
 
 export function saveEmployee(name, role, password) {
@@ -53,6 +51,4 @@ export function saveEmployee(name, role, password) {
     // Add the new employee with assigned quizzes
     employees.push(newEmp);
     localStorage.setItem('employees', JSON.stringify(employees));
-
-    console.log(`User ${name} created and assigned quizzes:`, newEmp.assignedQuizzes);
 }

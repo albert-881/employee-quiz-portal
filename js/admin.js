@@ -1,6 +1,7 @@
 // Import function to save employees
 import { saveEmployee } from "./database.js";
 
+const logoutBtn = document.querySelector('#logout-btn');
 // Select form elements for user creation
 const userForm = document.querySelector('#user-form');
 const userNameInput = document.querySelector('#user-name');
@@ -18,13 +19,12 @@ const quizDescInput = document.querySelector('#quiz-desc');
 
 // Handle new user creation
 userForm.addEventListener('submit', (e) => {
-    e.preventDefault();  // Prevent page reload
+    // Prevent page reload
 
     let user = userNameInput.value;
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
 
-    console.log(`User: ${user} | Role: ${role} | Password: ${tempPassword}`);
     saveEmployee(user, role, tempPassword);
 });
 
@@ -32,5 +32,9 @@ userForm.addEventListener('submit', (e) => {
 assignQuizBtn.addEventListener('click', (e) => {
     e.preventDefault();
     console.log('Assign quiz button clicked');  // Placeholder for future logic
+});
+
+logoutBtn.addEventListener('click', (e) => {
+    window.location.href = 'index.html';
 });
 

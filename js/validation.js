@@ -28,8 +28,7 @@ export function setCredentails() {
 
       // Now, check if the password is correct
       if (password === employees[i].password) {
-        console.log('Password correct, logging in...');
-
+        
         userFound = true;
         
         // Store the logged-in user in localStorage
@@ -40,7 +39,6 @@ export function setCredentails() {
         return;
       } 
       else {
-        console.log('Incorrect password');
         errorMSG();
         return; 
       }
@@ -48,7 +46,6 @@ export function setCredentails() {
   }
 
   if (!userFound) {
-    console.log('User not found');
     errorMSG();
   }
 }
