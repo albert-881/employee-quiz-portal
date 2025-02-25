@@ -10,8 +10,12 @@
 </head>
 <body>
     <h1>Quizzes</h1>
-    <div id="quiz-list"></div>
 
+    <!-- Logout Button -->
+    <button id="logout-btn" class="start-btn">Logout</button>
+
+    <div id="quiz-list"></div>
+    <script type="module" src="js/user.js" defer></script>
     <script type="module">
         import { showQuizzes } from "./js/ui.js";
         document.addEventListener("DOMContentLoaded", showQuizzes);

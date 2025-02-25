@@ -35,6 +35,7 @@ assignQuizBtn.addEventListener('click', (e) => {
 });
 
 logoutBtn.addEventListener('click', (e) => {
+    localStorage.removeItem('loggedInUser');
     window.location.href = 'index.html';
 });
 
