@@ -1,4 +1,6 @@
 import { saveQuiz, createQuiz } from "./database.js";
+import { startQuiz } from "./quizUI.js";
+import { seQuiz } from "./quizUI.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -43,6 +45,7 @@ export function showQuizzes() {
 
         quizCard.querySelector('.start-btn').addEventListener('click', () => {
             alert(`Starting quiz: ${q.quizName}`);
+            startQuiz(seQuiz);
         });
 
         quizlistContainer.appendChild(quizCard);
@@ -86,7 +89,7 @@ export function showMenu() {
     let quizName = prompt('Enter the name of the new quiz');
     let quizDescription = prompt('Enter a description for your quiz');
     let quizRole = prompt('Who is this quiz for?\n1: Software Engineer\n2: Nurse\n3: CNA\n4: RV/LVM');
-
+    
     const roles = { '1': 'software engineer', '2': 'nurse', '3': 'cna', '4': 'rvlvm' };
     quizRole = roles[quizRole] || alert('Invalid option');
 

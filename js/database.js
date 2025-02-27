@@ -1,9 +1,9 @@
 // Create a new quiz object
-export function createQuiz(name, description, role) {
+export function createQuiz(name, description, role, type, questions) {
     return {
         quizName: name,
         quizDescription: description,
-        role: role
+        role: role,
     };
 }
 

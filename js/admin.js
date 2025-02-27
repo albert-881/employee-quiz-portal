@@ -19,8 +19,6 @@ const quizDescInput = document.querySelector('#quiz-desc');
 
 // Handle new user creation
 userForm.addEventListener('submit', (e) => {
-    // Prevent page reload
-
     let user = userNameInput.value;
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
