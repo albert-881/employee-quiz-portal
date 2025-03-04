@@ -6,3 +6,7 @@ export async function viewQuizzes() {
     let data = await response.json();
     console.log("Data:", data);
   }
+
+export function callFunction(){
+  viewQuizzes();
+}

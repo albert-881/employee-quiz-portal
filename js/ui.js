@@ -1,5 +1,5 @@
 import { saveQuiz, createQuiz } from "./database.js";
-import { viewQuizzes } from "./backendLogic.js";
+
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -54,7 +54,7 @@ export function showQuizzes() {
 
 // Display quizzes for the admin panel
 export function showadminQuizzes() {
-    viewQuizzes();
+    
     const adminquizContainer = document.querySelector('#quiz-list-items');
     if (!adminquizContainer) return;
 
@@ -83,23 +83,6 @@ export function showadminQuizzes() {
         adminquizContainer.appendChild(quizCard);
     });
 }
-
-// Developer menu for creating quizzes
-export function showMenu() {  
-    let quizName = prompt('Enter the name of the new quiz');
-    let quizDescription = prompt('Enter a description for your quiz');
-    let quizRole = prompt('Who is this quiz for?\n1: Software Engineer\n2: Nurse\n3: CNA\n4: RV/LVM');
-    
-    const roles = { '1': 'software engineer', '2': 'nurse', '3': 'cna', '4': 'rvlvm' };
-    quizRole = roles[quizRole] || alert('Invalid option');
-
-    if (!quizRole) return; // Exit if role selection was invalid
-
-    console.log(`Creating Quiz: ${quizName} | ${quizDescription} | Role: ${quizRole}`);
-    let newQuiz = createQuiz(quizName, quizDescription, quizRole);
-    saveQuiz(newQuiz);
-}
-
 // Display error message on invalid login
 export function errorMSG() {
     message.textContent = 'Invalid Email or Password';
