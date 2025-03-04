@@ -1,5 +1,4 @@
-import { saveQuiz, createQuiz } from "./database.js";
-
+import { viewQuizzes } from "./backendLogic.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -54,7 +53,7 @@ export function showQuizzes() {
 
 // Display quizzes for the admin panel
 export function showadminQuizzes() {
-    
+    viewQuizzes();
     const adminquizContainer = document.querySelector('#quiz-list-items');
     if (!adminquizContainer) return;
 
