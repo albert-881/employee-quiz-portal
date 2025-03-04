@@ -1,6 +1,5 @@
 import { saveQuiz, createQuiz } from "./database.js";
-import { startQuiz } from "./quizUI.js";
-import { seQuiz } from "./quizUI.js";
+import { viewQuizzes } from "./backendLogic.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -45,7 +44,7 @@ export function showQuizzes() {
 
         quizCard.querySelector('.start-btn').addEventListener('click', () => {
             alert(`Starting quiz: ${q.quizName}`);
-            startQuiz(seQuiz);
+            window.location.href = 'startQuiz.html';
         });
 
         quizlistContainer.appendChild(quizCard);
@@ -55,6 +54,7 @@ export function showQuizzes() {
 
 // Display quizzes for the admin panel
 export function showadminQuizzes() {
+    viewQuizzes();
     const adminquizContainer = document.querySelector('#quiz-list-items');
     if (!adminquizContainer) return;
 

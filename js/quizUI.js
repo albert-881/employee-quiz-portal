@@ -1,3 +1,4 @@
+const quizForm =  document.querySelector('#quizForm');
 export const seQuiz = [
     {
         question: "What is the primary responsibility of a software engineer?",
@@ -28,6 +29,19 @@ export const seQuiz = [
 ]
 
 
-export function startQuiz(seQuiz){
-    console.log(seQuiz);
+export function startQuiz(){
+    for(let i = 0; i < seQuiz.length; i++){
+        console.log('****************************');
+        console.log(seQuiz[i].question);
+        const questionDiv = document.createElement("div");
+        const questionHeading = document.createElement("h3");
+        questionHeading.innerText = seQuiz[i].question;
+        questionDiv.appendChild(questionHeading);
+        quizForm.appendChild(questionDiv);
+        for(let j = 0; j < seQuiz[i].choices.length; j++){
+            console.log(seQuiz[i].choices[j]);
+        }
+    }
 }
+
+
