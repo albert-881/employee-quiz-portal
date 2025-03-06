@@ -52,35 +52,36 @@ export function showQuizzes() {
 
 
 // Display quizzes for the admin panel
-export function showadminQuizzes() {
-    viewQuizzes();
+export async function showadminQuizzes() {
+    let data = await viewQuizzes();
+    
     const adminquizContainer = document.querySelector('#quiz-list-items');
     if (!adminquizContainer) return;
 
     adminquizContainer.innerHTML = ''; // Clear previous content
-    let quizzes = JSON.parse(localStorage.getItem('quiz')) || [];
 
-    if (quizzes.length === 0) {
+
+    if (data.length === 0) {
         adminquizContainer.innerHTML = "<p>No quizzes available.</p>";
         return;
     }
 
-    quizzes.forEach(quiz => {
+    for(let i = 0; i < data.length; i++){
         const quizCard = document.createElement('div');
         quizCard.classList.add('quiz-card');
 
         quizCard.innerHTML = `
-            <h3>${quiz.quizName || "Unnamed Quiz"}</h3>
-            <p>${quiz.quizDescription || "No description available."}</p>
+            <h3>${data[i].quizName.S || "Unnamed Quiz"}</h3>
+            <p>${data[i].quizDescription.S || "No description available."}</p>
             <button class="btn">View Quiz</button>
         `;
 
         quizCard.querySelector('.btn').addEventListener('click', () => {
-            alert(`Viewing quiz: ${quiz.quizName}`);
+            alert(`Viewing quiz: ${data[i].quizName.S}`);
         });
 
         adminquizContainer.appendChild(quizCard);
-    });
+    }
 }
 // Display error message on invalid login
 export function errorMSG() {

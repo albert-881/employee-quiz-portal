@@ -1,5 +1,6 @@
 // Import function to save employees
 import { saveEmployee } from "./database.js";
+import { createEmployee } from "./backendLogic.js";
 
 const logoutBtn = document.querySelector('#logout-btn');
 // Select form elements for user creation
@@ -19,11 +20,12 @@ const quizDescInput = document.querySelector('#quiz-desc');
 
 // Handle new user creation
 userForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     let user = userNameInput.value;
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
-
-    saveEmployee(user, role, tempPassword);
+    createEmployee(user,tempPassword,role);
+    //saveEmployee(user, role, tempPassword);
 });
 
 // Handle quiz assignment (To be implemented)
