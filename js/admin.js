@@ -1,6 +1,5 @@
-// Import function to save employees
-import { saveEmployee } from "./database.js";
 import { createEmployee } from "./backendLogic.js";
+import { clearCredentials } from "./validation.js";
 
 const logoutBtn = document.querySelector('#logout-btn');
 // Select form elements for user creation
@@ -35,7 +34,7 @@ assignQuizBtn.addEventListener('click', (e) => {
 });
 
 logoutBtn.addEventListener('click', (e) => {
-    localStorage.removeItem('loggedInUser');
+    clearCredentials();
     window.location.href = 'index.html';
 });
 

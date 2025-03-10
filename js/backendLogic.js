@@ -9,6 +9,8 @@ export async function viewQuizzes() {
     
 }
 
+//*****************************************************************************/
+
 export async function createEmployee(user, pass, role) {
   try {
     const response = await fetch('https://sgeksxrs8h.execute-api.us-east-2.amazonaws.com/default/createEmployee', {
@@ -36,6 +38,8 @@ export async function createEmployee(user, pass, role) {
   }
 }
 
+//*****************************************************************************/
+
 export async function validateUser(email, password) {
   try {
     const response = await fetch('https://hjepi7lktg.execute-api.us-east-2.amazonaws.com/default/validateUser', {
@@ -60,8 +64,12 @@ export async function validateUser(email, password) {
     let data = await response.json();
     console.log("User validation success:", data);
     return data;  // Return the user role and quizzes
-  } catch (error) {
+
+  } 
+  catch (error) {
     console.error("Error in validateUser:", error);
     return null;
   }
 }
+
+//*****************************************************************************/
