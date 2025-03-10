@@ -16,6 +16,6 @@ export async function setCredentails() {
    window.location.href = 'demoAdmin.html';
   return;
   }
-  let answer = await validateUser(email);
+  let answer = await validateUser(email, password);
   console.log(answer);
 }

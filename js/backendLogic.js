@@ -36,20 +36,20 @@ export async function createEmployee(user, pass, role) {
   }
 }
 
-export async function validateUser(user) {
+export async function validateUser(email, password) {
   try {
     const response = await fetch('https://hjepi7lktg.execute-api.us-east-2.amazonaws.com/default/validateUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user }),  // Send user data as JSON
+      body: JSON.stringify({ email, password }),  // Send user data as JSON
     });
 
     if (!response.ok) {
       // If response is 404, handle it gracefully
       if (response.status === 404) {
-        console.warn("Employee not found:", user);  // Log a message to console
+        console.warn("Employee not found:", email);  // Log a message to console
         return null;  // Return null if employee not found
       }
 
