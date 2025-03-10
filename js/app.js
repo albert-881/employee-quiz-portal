@@ -1,11 +1,4 @@
 import { setCredentails } from "./validation.js";  // Handles user login validation
-
-
-// Wait for the DOM to fully load before executing the script
-
-    
-    
-    
     // Select the login form element
     const loginVerification = document.querySelector('#login-form');
 

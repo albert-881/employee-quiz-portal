@@ -34,7 +34,6 @@ assignQuizBtn.addEventListener('click', (e) => {
 });
 
 logoutBtn.addEventListener('click', (e) => {
-    clearCredentials();
     window.location.href = 'index.html';
 });
 
