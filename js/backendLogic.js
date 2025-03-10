@@ -38,7 +38,7 @@ export async function createEmployee(user, pass, role) {
 
 export async function validateUser(user) {
   try {
-    const response = await fetch('https://06iy2o594j.execute-api.us-east-2.amazonaws.com/default/getuserQuizzes', {
+    const response = await fetch('https://hjepi7lktg.execute-api.us-east-2.amazonaws.com/default/validateUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
