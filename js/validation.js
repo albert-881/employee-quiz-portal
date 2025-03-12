@@ -1,6 +1,5 @@
 import { validateUser } from "./backendLogic.js";
 import { getUserQuizzes } from "./backendLogic.js";
-import { showQuizzes } from "./ui.js";
 import { storeQuizzes } from "./ui.js";
 
 const adminEmail = 'quinteroalberto88@gmail.com';
@@ -27,10 +26,10 @@ export async function setCredentails() {
 
   //first grab the quizzes and store them in userQuizzes then use that information to populate the ui. 
   const userQuizzes = await getUserQuizzes(email, role);
-  console.log(userQuizzes);
+  
   if (userQuizzes.length > 0) {
-    storeQuizzes(userQuizzes); // Store quizzes in sessionStorage or localStorage
-    window.location.href = 'quiz-list.html'; // Navigate to quiz list
+    storeQuizzes(userQuizzes); // Store quizzes in sessionStorage
+    window.location.href = 'quiz-list.html'; // Navigate to quiz list. this should rememeber 
   } else {
     console.log("No quizzes found for the user.");
   }

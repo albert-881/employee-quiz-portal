@@ -1,4 +1,5 @@
 export async function viewQuizzes() {
+  //this allows the admin to see the list of quizzes existing
   console.log("Fetching quizzes...");
   const response = await fetch('https://jq0eto9ne5.execute-api.us-east-2.amazonaws.com/default/getQuizzes');
   console.log("Response received");
@@ -12,6 +13,7 @@ export async function viewQuizzes() {
 //*****************************************************************************//
 
 export async function createEmployee(user, pass, role) {
+  //this is for the admin to create new users
   try {
     const response = await fetch('https://sgeksxrs8h.execute-api.us-east-2.amazonaws.com/default/createEmployee', {
       method: 'POST',
@@ -41,6 +43,7 @@ export async function createEmployee(user, pass, role) {
 //*****************************************************************************//
 
 export async function validateUser(email, password) {
+  //when a user tries logging in it should validate them
   try {
     const response = await fetch('https://hjepi7lktg.execute-api.us-east-2.amazonaws.com/default/validateUser', {
       method: 'POST',
@@ -75,6 +78,7 @@ export async function validateUser(email, password) {
 //*****************************************************************************//
 
 export async function getUserQuizzes(email, role){
+  //if user is validated then they are able to see the list of quizzes they have to take
   try {
     const response = await fetch('https://4fvorp0scg.execute-api.us-east-2.amazonaws.com/default/getUserQuizzes', {
       method: 'POST',
