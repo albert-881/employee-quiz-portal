@@ -63,7 +63,7 @@ export async function validateUser(email, password) {
 
     let data = await response.json();
     console.log("User validation success:", data);
-    return data;  // Return the user role and quizzes
+    return data;
 
   } 
   catch (error) {
@@ -73,3 +73,24 @@ export async function validateUser(email, password) {
 }
 
 //*****************************************************************************//
+
+export async function getUserQuizzes(email, role){
+  try {
+    const response = await fetch('https://4fvorp0scg.execute-api.us-east-2.amazonaws.com/default/getUserQuizzes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, role }),  // Send user data as JSON
+    });
+    if (!response.ok) {
+      console.error("Error occured: ", response.statusText);
+      return null;  // Return null if other errors occur
+    }
+    let data = await response.json();
+    return data;
+  }
+  catch(error){
+
+  }
+}

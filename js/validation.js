@@ -1,4 +1,7 @@
 import { validateUser } from "./backendLogic.js";
+import { getUserQuizzes } from "./backendLogic.js";
+import { showQuizzes } from "./ui.js";
+import { storeQuizzes } from "./ui.js";
 
 const adminEmail = 'quinteroalberto88@gmail.com';
 const adminPassword = '4321';
@@ -16,11 +19,19 @@ export async function setCredentails() {
   return;
   }
 
-  let role = await validateUser(email, password);
-  console.log(role);
-}
+  let { role } = await validateUser(email, password);
+  if (!role){
+    return;
+  }
+  console.log(`the role is ${role}`);
 
-export function clearCredentials(){
-  document.querySelector('#email').value = '';
-  document.querySelector('#password').value = '';
+  //first grab the quizzes and store them in userQuizzes then use that information to populate the ui. 
+  const userQuizzes = await getUserQuizzes(email, role);
+  console.log(userQuizzes);
+  if (userQuizzes.length > 0) {
+    storeQuizzes(userQuizzes); // Store quizzes in sessionStorage or localStorage
+    window.location.href = 'quiz-list.html'; // Navigate to quiz list
+  } else {
+    console.log("No quizzes found for the user.");
+  }
 }

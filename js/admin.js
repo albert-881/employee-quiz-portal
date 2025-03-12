@@ -1,5 +1,4 @@
 import { createEmployee } from "./backendLogic.js";
-import { clearCredentials } from "./validation.js";
 
 const logoutBtn = document.querySelector('#logout-btn');
 // Select form elements for user creation

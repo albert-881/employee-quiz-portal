@@ -3,51 +3,44 @@ import { viewQuizzes } from "./backendLogic.js";
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
 
-// Display quizzes for the logged-in user
+
+
+export function storeQuizzes(data) {
+    console.log("Storing quizzes:", data);
+    sessionStorage.setItem('quizzes', JSON.stringify(data));  // Store quizzes as JSON
+  }
+  
+// Retrieve and display quizzes for the logged-in user
 export function showQuizzes() {
-    // Retrieve the logged-in user's email
-    let loggedInEmail = localStorage.getItem('loggedInUser');
-    if (!loggedInEmail) {
-        console.log("No user logged in.");
-        document.querySelector('#quiz-list').innerHTML = "<p>Please log in to see your quizzes.</p>";
-        return;
-    }
-
-    console.log(`Logged-in user: ${loggedInEmail}`);
-
-    // Retrieve employees and find the logged-in user
-    let employees = JSON.parse(localStorage.getItem('employees')) || [];
-    let loggedInUser = employees.find(emp => emp.name === loggedInEmail);
-
-    if (!loggedInUser || !loggedInUser.assignedQuizzes || loggedInUser.assignedQuizzes.length === 0) {
-        console.log("No quizzes assigned to this user.");
-        document.querySelector('#quiz-list').innerHTML = "<p>No quizzes assigned to your account.</p>";
-        return;
-    }
-
-    console.log('Loaded assigned quizzes:', loggedInUser.assignedQuizzes);
-
     const quizlistContainer = document.querySelector('#quiz-list');
     quizlistContainer.innerHTML = ''; // Clear previous content
-
-    // Display only the quizzes assigned to the logged-in user
-    loggedInUser.assignedQuizzes.forEach(q => {
-        const quizCard = document.createElement('div');
-        quizCard.classList.add('quiz-card');
-
-        quizCard.innerHTML = `
-            <h3>${q.quizName}</h3>
-            <p>${q.quizDescription}</p>
-            <button class="start-btn">Start Quiz</button>
-        `;
-
-        quizCard.querySelector('.start-btn').addEventListener('click', () => {
-            alert(`Starting quiz: ${q.quizName}`);
-            window.location.href = 'startQuiz.html';
-        });
-
-        quizlistContainer.appendChild(quizCard);
-    });
+  
+    // Retrieve quizzes from sessionStorage
+    let storedQuizzes = JSON.parse(sessionStorage.getItem('quizzes')) || [];
+    console.log("Loaded quizzes from sessionStorage:", storedQuizzes);
+  
+    if (storedQuizzes.length === 0) {
+      quizlistContainer.innerHTML = "<p>No quizzes available.</p>";
+      return;
+    }
+  
+    for(let i = 0; i < storedQuizzes.length; i++){
+      const quizCard = document.createElement('div');
+      quizCard.classList.add('quiz-card');
+  
+      quizCard.innerHTML = `
+        <h3>${storedQuizzes[i].quizName.S}</h3>
+        <p>${storedQuizzes[i].quizDescription.S}</p>
+        <button class="start-btn">Start Quiz</button>
+      `;
+  
+      quizCard.querySelector('.start-btn').addEventListener('click', () => {
+        alert(`Starting quiz: ${storedQuizzes[i].quizName.S}`);
+        // window.location.href = 'startQuiz.html'; // Uncomment when ready
+      });
+  
+      quizlistContainer.appendChild(quizCard);
+    }
 }
 
 
