@@ -98,3 +98,24 @@ export async function getUserQuizzes(email, role){
 
   }
 }
+
+export async function getUserQuestions(selectedQuizID){
+  try{
+    const response = await fetch('https://tjds31jn5h.execute-api.us-east-2.amazonaws.com/default/getUserQuestions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ selectedQuizID }),  // Send user data as JSON
+    });
+    if(!response.ok) {
+      console.error("Error occured: ", response.statusText);
+      return null;  // Return null if other errors occur
+    }
+    let data = await response.json();
+    return data;
+  }
+  catch(error){
+
+  }
+}

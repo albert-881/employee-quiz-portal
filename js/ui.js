@@ -1,4 +1,5 @@
 import { viewQuizzes } from "./backendLogic.js";
+import { getUserQuestions } from "./backendLogic.js";
 
 const loginVerification = document.querySelector('#login-form');
 const message = document.createElement('p');
@@ -34,8 +35,11 @@ export function showQuizzes() {
         <button class="start-btn">Start Quiz</button>
       `;
   
-      quizCard.querySelector('.start-btn').addEventListener('click', () => {
+      // Make the event handler function async
+      quizCard.querySelector('.start-btn').addEventListener('click', async () => {
         alert(`Starting quiz: ${storedQuizzes[i].quizName.S}`);
+        let questions = await getUserQuestions(storedQuizzes[i].id.S); // Ensure startQuiz returns a promise
+        console.log(questions); // Use the questions as needed
         // window.location.href = 'startQuiz.html'; // Uncomment when ready
       });
   
