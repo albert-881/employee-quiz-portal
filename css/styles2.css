@@ -1,0 +1,140 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* Quiz Container */
+.quiz-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    transform: scale(0.9);
+    animation: popIn 0.8s ease-in-out forwards;
+}
+
+/* Fade-in Effect on Page Load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Pop-in Effect for Quiz Container */
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Title Styling */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #4a90e2;
+}
+
+/* Submit Button */
+button {
+    display: block;
+    width: 100%;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+/* Button Hover Effect */
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+/* Quiz Question Styling */
+.question-block {
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.5s ease-in-out forwards;
+}
+
+/* Slide-in Effect for Each Question */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Question Text */
+.question-block p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Options Container */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Options Styling */
+.options-container label {
+    font-size: 1.1rem;
+    cursor: pointer;
+    background-color: rgba(74, 144, 226, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Selected Option Animation */
+.options-container input[type="radio"] {
+    display: none;
+}
+
+.options-container label:hover {
+    background-color: rgba(74, 144, 226, 0.2);
+}
+
+.options-container input[type="radio"]:checked + label {
+    background-color: #4a90e2;
+    color: white;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}

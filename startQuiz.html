@@ -7,14 +7,19 @@
     <link rel="stylesheet" href="css/styles2.css">
 </head>
 <body>
-    <h1>Software Engineering Quiz</h1>
+    <div class="quiz-container">
+        <h1>Software Engineering Quiz</h1>
 
-    <form id="quizForm">
-        <!-- Quiz questions will be dynamically inserted here -->
-    </form>
+        <form id="quizForm">
+            <!-- Quiz questions will be dynamically inserted here -->
+        </form>
 
-    <button id="submitQuizButton">Submit Quiz</button>
+        <button id="submitQuizButton">Submit Quiz</button>
+    </div>
 
-    
+    <script type="module">
+        import { showQuestions } from "./js/quizUI.js";
+        document.addEventListener("DOMContentLoaded", showQuestions);
+    </script>
 </body>
 </html>

@@ -9,7 +9,12 @@ const message = document.createElement('p');
 export function storeQuizzes(data) {
     console.log("Storing quizzes:", data);
     sessionStorage.setItem('quizzes', JSON.stringify(data));  // Store quizzes as JSON
-  }
+}
+export function storeQuestions(questions) {
+    sessionStorage.removeItem('questions');
+    console.log("Storing questions:", questions);
+    sessionStorage.setItem('questions', JSON.stringify(questions));
+}
   
 // Retrieve and display quizzes for the logged-in user
 export function showQuizzes() {
@@ -37,10 +42,10 @@ export function showQuizzes() {
   
       // Make the event handler function async
       quizCard.querySelector('.start-btn').addEventListener('click', async () => {
-        alert(`Starting quiz: ${storedQuizzes[i].quizName.S}`);
-        let questions = await getUserQuestions(storedQuizzes[i].id.S); // Ensure startQuiz returns a promise
-        console.log(questions); // Use the questions as needed
-        // window.location.href = 'startQuiz.html'; // Uncomment when ready
+
+        let questions = await getUserQuestions(storedQuizzes[i].id.S);
+        storeQuestions(questions);
+        window.location.href = 'startQuiz.html'; // Uncomment when ready
       });
   
       quizlistContainer.appendChild(quizCard);
