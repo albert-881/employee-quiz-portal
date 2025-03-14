@@ -10,23 +10,30 @@ body {
     background-color: #f4f7f6;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start; /* Align content to the top */
+    min-height: 100vh; /* Allow scrolling beyond viewport height */
     color: #333;
     opacity: 0;
     animation: fadeIn 1s ease-in-out forwards;
+    overflow-y: auto; /* Allow full page scrolling */
+    padding: 20px; /* Prevent content from sticking to the top */
 }
 
-/* Quiz Container */
 .quiz-container {
     background-color: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
+    max-width: 1000px; /* Increased the width to 800px */
+    width: 100%; /* Ensures it's responsive and takes up the full width up to the max-width */
     transform: scale(0.9);
     animation: popIn 0.8s ease-in-out forwards;
+    overflow-y: auto; /* Allows scrolling inside the quiz */
+}
+
+#quizForm {
+    max-height: 70vh; /* Ensures quiz questions fit */
+    overflow-y: auto; /* Enables scrolling inside the quiz */
 }
 
 /* Fade-in Effect on Page Load */
@@ -132,9 +139,10 @@ button:hover {
     background-color: rgba(74, 144, 226, 0.2);
 }
 
+/* Selected Option Animation */
 .options-container input[type="radio"]:checked + label {
     background-color: #4a90e2;
     color: white;
-    transform: scale(1.05);
-    transition: all 0.3s ease-in-out;
+    /* Removed the scaling effect */
+    border: 2px solid #4a90e2; /* Added a border instead of scaling */
 }
