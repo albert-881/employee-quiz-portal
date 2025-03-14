@@ -23,7 +23,6 @@ userForm.addEventListener('submit', (e) => {
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
     createEmployee(user,tempPassword,role);
-    //saveEmployee(user, role, tempPassword);
 });
 
 // Handle quiz assignment (To be implemented)
