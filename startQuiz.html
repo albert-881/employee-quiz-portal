@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Calculation Screening</title>
     <link rel="stylesheet" href="css/styles2.css">
+    <script type="module" src="js/quizUI.js" defer></script>
 </head>
 <body>
     <div class="quiz-container">
@@ -15,6 +16,12 @@
         </form>
 
         <button id="submitQuizButton">Submit Quiz</button>
+    </div>
+     <!-- Result Card (Initially Hidden) -->
+     <div id="resultCard" class="result-card">
+        <h2>Your Result</h2>
+        <p id="resultMessage"></p>
+        <button id="closeResultCard">Close</button>
     </div>
 
     <script type="module">

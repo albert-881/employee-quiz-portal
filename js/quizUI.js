@@ -1,3 +1,37 @@
+function getGrade(answers){
+    let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+    let score = 0;
+    let questionCounter = 0;
+    let counterCorrect = 0;
+    
+    storedQuestions.forEach((question, index) => {
+        questionCounter++;
+        let correctAnswer = storedQuestions[index].correctAnswer.S;
+        if(answers[`question-${index}`] === correctAnswer){
+            console.log(`question-${index} is correct`);
+            counterCorrect++;
+        }
+
+    });
+    let questionWorth = 100 / questionCounter;
+    score = Math.round(counterCorrect * questionWorth);
+    
+
+    const resultCard = document.getElementById("resultCard");
+    const resultMessage = document.getElementById("resultMessage");
+    const closeButton = document.getElementById("closeResultCard");
+
+    // Sample result message (Replace this with actual quiz results logic)
+    resultMessage.innerHTML = `Correct Answers: ${counterCorrect}/${questionCounter}<br><br>${score}`;
+    resultCard.style.display = "block"; // Show the result card
+    
+
+    closeButton.addEventListener("click", () => {
+        resultCard.style.display = "none"; // Close the result card
+    });
+}
+
+
 export function showQuestions() {
   const quizForm = document.getElementById("quizForm");
 
@@ -45,7 +79,7 @@ export function showQuestions() {
               // Append input and label to container
               optionsContainer.appendChild(optionInput);
               optionsContainer.appendChild(optionLabel);
-          }
+            }
       }
 
       questionBlock.appendChild(optionsContainer);
@@ -58,3 +92,35 @@ export function showQuestions() {
       }, i * 200);
   }
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const submitQuestions = document.querySelector('#submitQuizButton');
+
+    submitQuestions.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevents page refresh
+
+        // Retrieve stored questions from sessionStorage
+        let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+        const answers = {};
+        let allAnswered = true; // Flag to check if all questions are answered
+
+        // Loop through each question
+        storedQuestions.forEach((question, index) => {
+            const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+            answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
+
+            if (!selectedOption) {
+                allAnswered = false; // Mark as false if any question is unanswered
+            }
+        });
+
+        // If any question is unanswered, show an alert and stop submission
+        if (!allAnswered) {
+            alert("Please answer all questions before submitting!");
+            return;
+        }
+        getGrade(answers);
+        
+    });
+});

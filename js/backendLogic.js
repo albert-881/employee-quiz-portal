@@ -54,12 +54,6 @@ export async function validateUser(email, password) {
     });
 
     if (!response.ok) {
-      // If response is 404, handle it gracefully
-      if (response.status === 404) {
-        console.warn("Employee not found:", email);  // Log a message to console
-        return null;  // Return null if employee not found
-      }
-
       console.error("Failed to validate user:", response.statusText);
       return null;  // Return null if other errors occur
     }
