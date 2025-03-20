@@ -113,3 +113,28 @@ export async function getUserQuestions(selectedQuizID){
 
   }
 }
+
+export async function completeQuiz(quizId, user) {
+  try {
+    const response = await fetch("https://wgxag31fp4.execute-api.us-east-2.amazonaws.com/default/completeQuiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ quizId, user }), // ✅ Ensure correct JSON structure
+    });
+
+    console.log(`Current quiz ID: ${quizId}, Current user: ${user}`);
+
+    if (!response.ok) {
+      const errorMessage = await response.text(); // ✅ Get the actual API error message
+      console.error(`❌ API Error Response: ${errorMessage}`); // ✅ Log what API Gateway is returning
+      return; // Stop execution if request failed
+    }
+
+    const data = await response.json(); // ✅ Convert response to JSON if successful
+    console.log(`✅ Success: ${data.message}`);
+  } catch (error) {
+    console.error("❌ Fetch error:", error); // ✅ Catch unexpected errors (like network issues)
+  }
+}

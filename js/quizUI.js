@@ -1,3 +1,5 @@
+import { completeQuiz } from "./backendLogic.js";
+
 function getGrade(answers){
     let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
     let score = 0;
@@ -25,6 +27,9 @@ function getGrade(answers){
     resultMessage.innerHTML = `Correct Answers: ${counterCorrect}/${questionCounter}<br><br>${score}`;
     resultCard.style.display = "block"; // Show the result card
     
+    const currQuizId = sessionStorage.getItem('currQuizId');
+    const currUser = sessionStorage.getItem('currUser');
+    completeQuiz(currQuizId, currUser);
 
     closeButton.addEventListener("click", () => {
         resultCard.style.display = "none"; // Close the result card

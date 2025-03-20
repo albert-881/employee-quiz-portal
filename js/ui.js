@@ -42,8 +42,11 @@ export function showQuizzes() {
   
       // Make the event handler function async
       quizCard.querySelector('.start-btn').addEventListener('click', async () => {
+        sessionStorage.removeItem('currQuizId');
+        sessionStorage.setItem('currQuizId', storedQuizzes[i].id.S);
 
         let questions = await getUserQuestions(storedQuizzes[i].id.S);
+
         storeQuestions(questions);
         window.location.href = 'startQuiz.html'; // Uncomment when ready
       });
