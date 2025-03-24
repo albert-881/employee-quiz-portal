@@ -101,9 +101,12 @@ export function showQuestions() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const submitQuestions = document.querySelector('#submitQuizButton');
-
+    
     submitQuestions.addEventListener('click', (e) => {
         e.preventDefault(); // Prevents page refresh
+
+        const hideQuiz = document.querySelector('.quiz-container');
+        hideQuiz.style.display = "none";
 
         // Retrieve stored questions from sessionStorage
         let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];

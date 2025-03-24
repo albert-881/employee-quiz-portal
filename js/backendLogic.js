@@ -127,14 +127,14 @@ export async function completeQuiz(quizId, user) {
     console.log(`Current quiz ID: ${quizId}, Current user: ${user}`);
 
     if (!response.ok) {
-      const errorMessage = await response.text(); // ✅ Get the actual API error message
-      console.error(`❌ API Error Response: ${errorMessage}`); // ✅ Log what API Gateway is returning
+      const errorMessage = await response.text(); 
+      console.error(`API Error Response: ${errorMessage}`); 
       return; // Stop execution if request failed
     }
 
     const data = await response.json(); // ✅ Convert response to JSON if successful
     console.log(`✅ Success: ${data.message}`);
   } catch (error) {
-    console.error("❌ Fetch error:", error); // ✅ Catch unexpected errors (like network issues)
+    console.error("Fetch error:", error); // ✅ Catch unexpected errors (like network issues)
   }
 }
