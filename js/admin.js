@@ -17,12 +17,13 @@ const quizNameInput = document.querySelector('#quiz-name');
 const quizDescInput = document.querySelector('#quiz-desc');
 
 // Handle new user creation
-userForm.addEventListener('submit', (e) => {
+userForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     let user = userNameInput.value;
     let role = userRoleInput.value;
     let tempPassword = userTempPassword.value;
-    createEmployee(user,tempPassword,role);
+    await createEmployee(user,tempPassword,role);
+    window.location.reload();
 });
 
 // Handle quiz assignment (To be implemented)
