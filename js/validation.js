@@ -1,6 +1,7 @@
 import { validateUser } from "./backendLogic.js";
 import { getUserQuizzes } from "./backendLogic.js";
 import { storeQuizzes } from "./ui.js";
+import { errorMSG } from "./ui.js";
 
 const adminEmail = 'quinteroalberto88@gmail.com';
 const adminPassword = '4321';
@@ -19,9 +20,11 @@ export async function setCredentails() {
   }
 
   let { role } = await validateUser(email, password);
-  if (!role){
+  if (role == null){
+    errorMSG();
     return;
   }
+
   sessionStorage.removeItem('currUser');
   sessionStorage.setItem("currUser", JSON.stringify({ email, role }));
   console.log(`the role is ${role}`);
