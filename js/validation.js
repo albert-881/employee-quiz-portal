@@ -23,7 +23,7 @@ export async function setCredentails() {
     return;
   }
   sessionStorage.removeItem('currUser');
-  sessionStorage.setItem('currUser', email);
+  sessionStorage.setItem("currUser", JSON.stringify({ email, role }));
   console.log(`the role is ${role}`);
 
   //first grab the quizzes and store them in userQuizzes then use that information to populate the ui. 

@@ -1,4 +1,6 @@
 import { completeQuiz } from "./backendLogic.js";
+import { getUserQuizzes } from "./backendLogic.js";
+import { storeQuizzes } from "./ui.js";
 
 function getGrade(answers){
     let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
@@ -28,11 +30,19 @@ function getGrade(answers){
     resultCard.style.display = "block"; // Show the result card
     
     const currQuizId = sessionStorage.getItem('currQuizId');
-    const currUser = sessionStorage.getItem('currUser');
-    completeQuiz(currQuizId, currUser);
+    let currUser = JSON.parse(sessionStorage.getItem("currUser"));
+    completeQuiz(currQuizId, currUser.email);
 
-    closeButton.addEventListener("click", () => {
+    closeButton.addEventListener("click", async () => {
         resultCard.style.display = "none"; // Close the result card
+        const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
+        if (userQuizzes.length > 0) {
+            storeQuizzes(userQuizzes); // Store quizzes in sessionStorage
+            window.location.href = 'quiz-list.html'; 
+          } else {
+            alert("No quizzes found for the user.");
+            window.location.href = 'index.html';
+          }
     });
 }
 
