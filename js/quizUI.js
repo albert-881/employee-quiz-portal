@@ -34,13 +34,8 @@ function getGrade(answers) {
         resultCard.style.display = "none"; // Close result card
 
         const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
-        if (userQuizzes.length > 0) {
-            storeQuizzes(userQuizzes);
-            window.location.href = "quiz-list.html";
-        } else {
-            alert("No quizzes found for the user.");
-            window.location.href = "index.html";
-        }
+        storeQuizzes(userQuizzes);
+        window.location.href = "quiz-list.html";
     });
 }
 

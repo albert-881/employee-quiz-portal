@@ -7,7 +7,7 @@ const userNameInput = document.querySelector('#user-name');
 const userRoleInput = document.querySelector('#user-role');
 const userTempPassword = document.querySelector('#user-password');
 // Select elements for quiz assignment
-const assignQuizBtn = document.querySelector('#assign-quiz-btn');
+
 
 
 // Handle new user creation
