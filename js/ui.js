@@ -8,12 +8,11 @@ const message = document.createElement('p');
 
 export function storeQuizzes(data) {
     sessionStorage.removeItem('quizzes');
-    console.log("Storing quizzes:", data);
     sessionStorage.setItem('quizzes', JSON.stringify(data));  // Store quizzes as JSON
 }
 export function storeQuestions(questions) {
     sessionStorage.removeItem('questions');
-    console.log("Storing questions:", questions);
+    console.table("Storing questions:", questions);
     sessionStorage.setItem('questions', JSON.stringify(questions));
 }
   
@@ -24,7 +23,7 @@ export function showQuizzes() {
   
     // Retrieve quizzes from sessionStorage
     let storedQuizzes = JSON.parse(sessionStorage.getItem('quizzes')) || [];
-    console.log("Loaded quizzes from sessionStorage:", storedQuizzes);
+    console.table("Loaded quizzes from sessionStorage:", storedQuizzes);
   
     if (storedQuizzes.length === 0) {
       quizlistContainer.innerHTML = "<p>No quizzes available.</p>";
@@ -49,7 +48,7 @@ export function showQuizzes() {
         let questions = await getUserQuestions(storedQuizzes[i].id.S);
 
         storeQuestions(questions);
-        window.location.href = 'startQuiz.html'; // Uncomment when ready
+        window.location.href = 'startQuiz.html';
       });
   
       quizlistContainer.appendChild(quizCard);

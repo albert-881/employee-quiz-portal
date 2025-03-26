@@ -5,7 +5,7 @@ export async function viewQuizzes() {
   console.log("Response received");
   
   let data = await response.json();
-  console.log(data);
+  console.table(data);
   return data;
     
 }
@@ -25,18 +25,18 @@ export async function createEmployee(user, pass, role) {
 
     // Check if the response status is OK (status 200)
     if (response.ok) {
-      const data = await response.json();  // Parse the JSON response
+      const data = await response.json();
       console.log('Employee created successfully:', data.message);
-      return data;  // Return the success data (optional)
+      return data;  
     } else {
       // If the response status is not OK, throw an error
-      const errorData = await response.json();  // Get the error message from the response
+      const errorData = await response.json();  
       throw new Error(errorData.message || 'Failed to create employee');
     }
   } catch (error) {
     // Handle any errors that occur during the fetch request
     console.error('Error:', error.message);
-    alert('Error: ' + error.message);  // Optional: Display error to user
+    alert('Error: ' + error.message);
   }
 }
 
@@ -50,12 +50,12 @@ export async function validateUser(email, password) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),  // Send user data as JSON
+      body: JSON.stringify({ email, password }),  
     });
 
     if (!response.ok) {
       console.error("Failed to validate user:", response.statusText);
-      return null;  // Return null if other errors occur
+      return null; 
     }
 
     let data = await response.json();
@@ -79,11 +79,11 @@ export async function getUserQuizzes(email, role){
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, role }),  // Send user data as JSON
+      body: JSON.stringify({ email, role }),
     });
     if (!response.ok) {
       console.error("Error occured: ", response.statusText);
-      return null;  // Return null if other errors occur
+      return null;  
     }
     let data = await response.json();
     return data;
@@ -92,6 +92,8 @@ export async function getUserQuizzes(email, role){
 
   }
 }
+
+//*****************************************************************************//
 
 export async function getUserQuestions(selectedQuizID){
   try{
@@ -100,11 +102,11 @@ export async function getUserQuestions(selectedQuizID){
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ selectedQuizID }),  // Send user data as JSON
+      body: JSON.stringify({ selectedQuizID }),  
     });
     if(!response.ok) {
       console.error("Error occured: ", response.statusText);
-      return null;  // Return null if other errors occur
+      return null; 
     }
     let data = await response.json();
     return data;
@@ -114,6 +116,8 @@ export async function getUserQuestions(selectedQuizID){
   }
 }
 
+//*****************************************************************************//
+
 export async function completeQuiz(quizId, user) {
   try {
     const response = await fetch("https://wgxag31fp4.execute-api.us-east-2.amazonaws.com/default/completeQuiz", {
@@ -121,7 +125,7 @@ export async function completeQuiz(quizId, user) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ quizId, user }), // ✅ Ensure correct JSON structure
+      body: JSON.stringify({ quizId, user }),
     });
 
     console.log(`Current quiz ID: ${quizId}, Current user: ${user}`);
@@ -132,9 +136,13 @@ export async function completeQuiz(quizId, user) {
       return; // Stop execution if request failed
     }
 
-    const data = await response.json(); // ✅ Convert response to JSON if successful
-    console.log(`✅ Success: ${data.message}`);
+    const data = await response.json(); 
+    console.log(`Success: ${data.message}`);
   } catch (error) {
-    console.error("Fetch error:", error); // ✅ Catch unexpected errors (like network issues)
+    console.error("Fetch error:", error); 
   }
 }
+
+//*****************************************************************************//
+
+
