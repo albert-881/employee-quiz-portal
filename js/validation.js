@@ -1,41 +1,38 @@
-import { validateUser } from "./backendLogic.js";
-import { getUserQuizzes } from "./backendLogic.js";
-import { storeQuizzes } from "./ui.js";
-import { errorMSG } from "./ui.js";
+import { validateUser, getUserQuizzes } from "./backendLogic.js";
+import { storeQuizzes, errorMSG } from "./ui.js";
 
-const adminEmail = 'quinteroalberto88@gmail.com';
-const adminPassword = '4321';
+const ADMIN_EMAIL = "quinteroalberto88@gmail.com";
+const ADMIN_PASSWORD = "4321";
 
-// This file is responsible for verifying login credentials 
-// and directing users to their appropriate pages
-
+// Handles login validation and user redirection
 export async function setCredentails() {
-// Check if the user is an admin
-  let email = document.querySelector('#email').value;  
-  let password = document.querySelector('#password').value;
+    const email = document.querySelector("#email").value;
+    const password = document.querySelector("#password").value;
 
-  if (email === adminEmail && password === adminPassword) {
-    window.location.href = 'demoAdmin.html';
-  return;
-  }
+    // Redirect admin users to the admin panel
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        window.location.href = "demoAdmin.html";
+        return;
+    }
 
-  let { role } = await validateUser(email, password);
-  if (role == null){
-    errorMSG();
-    return;
-  }
+    // Validate regular user credentials
+    const { role } = await validateUser(email, password);
+    if (!role) {
+        errorMSG(); // Display login error
+        return;
+    }
 
-  sessionStorage.removeItem('currUser');
-  sessionStorage.setItem("currUser", JSON.stringify({ email, role }));
-  console.log(`the role is ${role}`);
+    // Store user session data
+    sessionStorage.setItem("currUser", JSON.stringify({ email, role }));
+    console.log(`User role: ${role}`);
 
-  //first grab the quizzes and store them in userQuizzes then use that information to populate the ui. 
-  const userQuizzes = await getUserQuizzes(email, role);
-  
-  if (userQuizzes.length > 0) {
-    storeQuizzes(userQuizzes); // Store quizzes in sessionStorage
-    window.location.href = 'quiz-list.html'; // Navigate to quiz list. this should rememeber 
-  } else {
-    console.log("No quizzes found for the user.");
-  }
+    // Retrieve and store user quizzes
+    const userQuizzes = await getUserQuizzes(email, role);
+
+    if (userQuizzes.length > 0) {
+        storeQuizzes(userQuizzes);
+        window.location.href = "quiz-list.html"; // Navigate to quiz list
+    } else {
+        console.log("No quizzes found for the user.");
+    }
 }

@@ -1,144 +1,133 @@
-import { completeQuiz } from "./backendLogic.js";
-import { getUserQuizzes } from "./backendLogic.js";
+import { completeQuiz, getUserQuizzes } from "./backendLogic.js";
 import { storeQuizzes } from "./ui.js";
 
-function getGrade(answers){
-    let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
-    let score = 0;
-    let questionCounter = 0;
-    let counterCorrect = 0;
-    
+/* =====================================
+   Calculate Quiz Grade & Show Results
+===================================== */
+function getGrade(answers) {
+    const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+    let correctCount = 0;
+
     storedQuestions.forEach((question, index) => {
-        questionCounter++;
-        let correctAnswer = storedQuestions[index].correctAnswer.S;
-        if(answers[`question-${index}`] === correctAnswer){
-            console.log(`question-${index} is correct`);
-            counterCorrect++;
+        const correctAnswer = question.correctAnswer.S;
+        if (answers[`question-${index}`] === correctAnswer) {
+            console.log(`Question ${index} is correct`);
+            correctCount++;
         }
-
     });
-    let questionWorth = 100 / questionCounter;
-    score = Math.round(counterCorrect * questionWorth);
-    
 
+    const totalQuestions = storedQuestions.length;
+    const score = Math.round((correctCount / totalQuestions) * 100);
+
+    // Display results in result card
     const resultCard = document.getElementById("resultCard");
     const resultMessage = document.getElementById("resultMessage");
-    const closeButton = document.getElementById("closeResultCard");
+    resultMessage.innerHTML = `Correct Answers: ${correctCount}/${totalQuestions}<br><br>Score: ${score}%`;
+    resultCard.style.display = "block";
 
-    // Sample result message (Replace this with actual quiz results logic)
-    resultMessage.innerHTML = `Correct Answers: ${counterCorrect}/${questionCounter}<br><br>${score}`;
-    resultCard.style.display = "block"; // Show the result card
-    
-    const currQuizId = sessionStorage.getItem('currQuizId');
-    let currUser = JSON.parse(sessionStorage.getItem("currUser"));
+    // Save quiz completion and handle redirection
+    const currQuizId = sessionStorage.getItem("currQuizId");
+    const currUser = JSON.parse(sessionStorage.getItem("currUser"));
     completeQuiz(currQuizId, currUser.email);
 
-    closeButton.addEventListener("click", async () => {
-        resultCard.style.display = "none"; // Close the result card
+    document.getElementById("closeResultCard").addEventListener("click", async () => {
+        resultCard.style.display = "none"; // Close result card
+
         const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
         if (userQuizzes.length > 0) {
-            storeQuizzes(userQuizzes); // Store quizzes in sessionStorage
-            window.location.href = 'quiz-list.html'; 
-          } else {
+            storeQuizzes(userQuizzes);
+            window.location.href = "quiz-list.html";
+        } else {
             alert("No quizzes found for the user.");
-            window.location.href = 'index.html';
-          }
+            window.location.href = "index.html";
+        }
     });
 }
 
-
+/* =====================================
+   Display Questions Dynamically
+===================================== */
 export function showQuestions() {
-  const quizForm = document.getElementById("quizForm");
+    const quizForm = document.getElementById("quizForm");
+    const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
 
-  // Retrieve stored questions from sessionStorage
-  let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+    if (storedQuestions.length === 0) {
+        quizForm.innerHTML = "<p>No questions available.</p>";
+        return;
+    }
 
-  if (storedQuestions.length === 0) {
-      quizForm.innerHTML = "<p>No questions available.</p>";
-      return;
-  }
+    storedQuestions.forEach((question, i) => {
+        const questionBlock = document.createElement("div");
+        questionBlock.classList.add("question-block");
 
-  for (let i = 0; i < storedQuestions.length; i++) {
-      const question = storedQuestions[i];
-      const questionBlock = document.createElement("div");
-      questionBlock.classList.add("question-block");
+        // Create question header
+        questionBlock.innerHTML = `<p><strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong></p>`;
 
-      // Create question header
-      const questionText = question.questionText.S || "No question text available";
-      questionBlock.innerHTML = `
-          <p><strong>${i + 1}. ${questionText}</strong></p>
-      `;
+        // Create options container
+        const optionsContainer = document.createElement("div");
+        optionsContainer.classList.add("options-container");
 
-      // Create options container
-      const optionsContainer = document.createElement("div");
-      optionsContainer.classList.add("options-container");
+        // Generate options if available
+        if (Array.isArray(question.options.SS)) {
+            question.options.SS.forEach((option, j) => {
+                const radioId = `q${i}-option${j}`;
 
-      // Check if 'options.SS' is an array before looping through it
-      if (Array.isArray(question.options.SS)) {
-          for (let j = 0; j < question.options.SS.length; j++) {
-              const option = question.options.SS[j];
+                const optionInput = document.createElement("input");
+                optionInput.type = "radio";
+                optionInput.name = `question-${i}`;
+                optionInput.value = option;
+                optionInput.id = radioId;
 
-              // Generate unique IDs
-              const radioId = `q${i}-option${j}`;
+                const optionLabel = document.createElement("label");
+                optionLabel.setAttribute("for", radioId);
+                optionLabel.innerText = option;
 
-              const optionInput = document.createElement("input");
-              optionInput.type = "radio";
-              optionInput.name = `question-${i}`;
-              optionInput.value = option;
-              optionInput.id = radioId;
+                optionsContainer.appendChild(optionInput);
+                optionsContainer.appendChild(optionLabel);
+            });
+        }
 
-              const optionLabel = document.createElement("label");
-              optionLabel.setAttribute("for", radioId);
-              optionLabel.innerText = option;
+        questionBlock.appendChild(optionsContainer);
+        quizForm.appendChild(questionBlock);
 
-              // Append input and label to container
-              optionsContainer.appendChild(optionInput);
-              optionsContainer.appendChild(optionLabel);
-            }
-      }
-
-      questionBlock.appendChild(optionsContainer);
-      quizForm.appendChild(questionBlock);
-
-      // ✅ Delay each question rendering for smooth animation
-      setTimeout(() => {
-          questionBlock.style.opacity = "1";
-          questionBlock.style.transform = "translateY(0)";
-      }, i * 200);
-  }
+        // ✅ Smooth animation effect for displaying questions
+        setTimeout(() => {
+            questionBlock.style.opacity = "1";
+            questionBlock.style.transform = "translateY(0)";
+        }, i * 200);
+    });
 }
 
-
+/* =====================================
+   Handle Quiz Submission
+===================================== */
 document.addEventListener("DOMContentLoaded", () => {
-    const submitQuestions = document.querySelector('#submitQuizButton');
-    
-    submitQuestions.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevents page refresh
+    const submitButton = document.querySelector("#submitQuizButton");
 
-        const hideQuiz = document.querySelector('.quiz-container');
-        hideQuiz.style.display = "none";
+    submitButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent page refresh
 
-        // Retrieve stored questions from sessionStorage
-        let storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+        document.querySelector(".quiz-container").style.display = "none";
+
+        const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
         const answers = {};
-        let allAnswered = true; // Flag to check if all questions are answered
+        let allAnswered = true;
 
-        // Loop through each question
-        storedQuestions.forEach((question, index) => {
+        // Collect answers and check if all questions are answered
+        storedQuestions.forEach((_, index) => {
             const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
             answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
 
             if (!selectedOption) {
-                allAnswered = false; // Mark as false if any question is unanswered
+                allAnswered = false;
             }
         });
 
-        // If any question is unanswered, show an alert and stop submission
         if (!allAnswered) {
             alert("Please answer all questions before submitting!");
             return;
         }
+
         getGrade(answers);
-        
     });
 });

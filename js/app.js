@@ -1,11 +1,16 @@
-import { setCredentails } from "./validation.js";  // Handles user login validation
-    // Select the login form element
-    const loginVerification = document.querySelector('#login-form');
+import { setCredentails } from "./validation.js"; // Handles user login validation
 
-    // Add an event listener to handle login form submission
-    loginVerification.addEventListener('submit', (e) => {
-        e.preventDefault();  // Prevents the page from reloading when the form is submitted
-        document.getElementById("loading").style.display = "flex";
-        // Calls the function to validate the user's credentials
-        setCredentails();
+// Get the login form element
+const loginForm = document.querySelector('#login-form');
+
+if (loginForm) {
+    // Handle login form submission
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent page reload
+        document.getElementById("loading").style.display = "flex"; // Show loading indicator
+        
+        setCredentails(); // Validate user credentials
     });
+} else {
+    console.warn("Login form not found.");
+}
