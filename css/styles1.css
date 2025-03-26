@@ -26,7 +26,7 @@
 
 /* Hover effect for quiz name */
 .quiz-card:hover h3 {
-    color: #4CAF50; /* Green color on hover */
+    color: #4a90e2; /* Blue color on hover */
 }
 
 /* Styling for quiz description */
@@ -38,7 +38,7 @@
 
 /* Styling for start button */
 .start-btn {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4a90e2; /* Blue background */
     color: white;
     padding: 10px 20px;
     font-size: 16px;
@@ -51,13 +51,13 @@
 
 /* Hover effect for start button */
 .start-btn:hover {
-    background-color: #45a049; /* Slightly darker green */
+    background-color: #357ABD; /* Darker blue on hover */
     transform: scale(1.05); /* Slight scaling on hover */
 }
 
 /* Active state for start button */
 .start-btn:active {
-    background-color: #388e3c; /* Darker green on click */
+    background-color: #2f6c99; /* Even darker blue on click */
     transform: scale(0.98); /* Slight shrink on click */
 }
 
@@ -73,6 +73,7 @@
     }
 }
 
+/* Mobile Responsiveness */
 @media (max-width: 600px) {
     .quiz-card {
         padding: 15px;
