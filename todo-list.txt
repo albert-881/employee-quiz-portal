@@ -1,0 +1,12 @@
+TODO List for Quiz Portal:
+
+    -Store grades, date quiz was completed and employee name in a separate table in the database.
+    -Add a due date for each quiz and if the date is surpassed the employee receives a 0 or whatever the admin decides.
+    -Add a ui for admin to be able to view all grades.
+    -Add the option for the admin to view any quiz they want.
+    -Let admin assign employee a different role if by any chance they intially mistakenly assign the wrong role.
+    -Create a timer for the quizzes.
+    -Create a warning message when submit button is clicked.
+    -Add security
+        -Login Credentials.
+        -Quiz answers should not be accessed through session storage in the console.
