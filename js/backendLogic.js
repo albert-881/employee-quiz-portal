@@ -168,6 +168,5 @@ export async function storeGrade(date, grade, userEmail, quizID) {
     console.error("Fetch error:", error);
   }
 }
-
 //*****************************************************************************//
 

@@ -8,4 +8,4 @@ TODO List for Quiz Portal:
     -Create a warning message when submit button is clicked.
     -Add security
         -Login Credentials.
-        -Quiz answers should not be accessed through session storage in the console.
+        -Quiz answers should not be accessed through session storage in the console. 
