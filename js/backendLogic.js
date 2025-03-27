@@ -145,12 +145,29 @@ export async function completeQuiz(quizId, user) {
 
 //*****************************************************************************//
 
-export async function storeGrade(date, grade, userEmail){
-  try{
-    console.log(`Date: ${date} Grade: ${grade} User: ${userEmail}`);
-  }
-  catch(error){
+export async function storeGrade(date, grade, userEmail, quizID) {
+  try {
+    const response = await fetch('https://ln6uj5yp0m.execute-api.us-east-2.amazonaws.com/default/storeGrade', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ date, grade, userEmail, quizID }),
+    });
+    
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      console.error(`API Error Response: ${errorMessage}`);
+      return; // Stop execution if request failed
+    }
 
+    const data = await response.json();
+    console.log(`Success: ${data.message}`);
+    
+  } catch (error) {
+    console.error("Fetch error:", error);
   }
 }
+
+//*****************************************************************************//
 
