@@ -1,5 +1,6 @@
 import { completeQuiz, getUserQuizzes } from "./backendLogic.js";
 import { storeQuizzes } from "./ui.js";
+import { storeGrade } from "./backendLogic.js";
 
 /* =====================================
    Calculate Quiz Grade & Show Results
@@ -29,6 +30,8 @@ function getGrade(answers) {
     const currQuizId = sessionStorage.getItem("currQuizId");
     const currUser = JSON.parse(sessionStorage.getItem("currUser"));
     completeQuiz(currQuizId, currUser.email);
+    let today = new Date();
+    storeGrade(today, score, currUser.email);
 
     document.getElementById("closeResultCard").addEventListener("click", async () => {
         resultCard.style.display = "none"; // Close result card
@@ -119,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         if (!allAnswered) {
-            alert("Please answer all questions before submitting!");
+            alert("Please answer all questions before submitting!"); 
             return;
         }
 

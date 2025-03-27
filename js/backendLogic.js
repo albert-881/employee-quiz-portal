@@ -145,4 +145,12 @@ export async function completeQuiz(quizId, user) {
 
 //*****************************************************************************//
 
+export async function storeGrade(date, grade, userEmail){
+  try{
+    console.log(`Date: ${date} Grade: ${grade} User: ${userEmail}`);
+  }
+  catch(error){
+
+  }
+}
 
