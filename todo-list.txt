@@ -1,7 +1,6 @@
 TODO List for Quiz Portal:
 
     -Add a due date for each quiz and if the date is surpassed the employee receives a 0 or whatever the admin decides.
-    -Add a ui for admin to be able to view all grades.
     -Add the option for the admin to view any quiz they want.
     -Let admin assign employee a different role if by any chance they intially mistakenly assign the wrong role.
     -Create a timer for the quizzes.
