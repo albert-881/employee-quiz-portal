@@ -145,14 +145,14 @@ export async function completeQuiz(quizId, user) {
 
 //*****************************************************************************//
 
-export async function storeGrade(date, grade, userEmail, quizID) {
+export async function storeGrade(date, grade, userEmail, userRole, quizID) {
   try {
     const response = await fetch('https://ln6uj5yp0m.execute-api.us-east-2.amazonaws.com/default/storeGrade', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ date, grade, userEmail, quizID }),
+      body: JSON.stringify({ date, grade, userEmail,userRole, quizID }),
     });
     
     if (!response.ok) {
@@ -170,3 +170,13 @@ export async function storeGrade(date, grade, userEmail, quizID) {
 }
 //*****************************************************************************//
 
+export async function getGrades(){
+  try{
+    const response = await fetch('https://68h9j9bag3.execute-api.us-east-2.amazonaws.com/default/getGrades');
+    let data = await response.json();
+    return data;
+  }
+  catch(error){
+    console.error("Fetch error:", error);
+  }
+}

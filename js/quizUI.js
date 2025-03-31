@@ -31,7 +31,7 @@ function getGrade(answers) {
     const currUser = JSON.parse(sessionStorage.getItem("currUser"));
     completeQuiz(currQuizId, currUser.email);
     let today = new Date();
-    storeGrade(today, score, currUser.email, currQuizId);
+    storeGrade(today, score, currUser.email, currUser.role, currQuizId);
 
     document.getElementById("closeResultCard").addEventListener("click", async () => {
         resultCard.style.display = "none"; // Close result card

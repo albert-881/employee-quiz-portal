@@ -1,0 +1,97 @@
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Header styling */
+h1 {
+    color: #4a90e2;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Refresh Button Styling */
+#refreshGradesBtn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+/* Hover effect */
+#refreshGradesBtn:hover {
+    background-color: #357ABD;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Active (clicked) effect */
+#refreshGradesBtn:active {
+    background-color: #2c639d;
+    transform: translateY(1px);
+}
+
+/* Table styles */
+table {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header */
+thead {
+    background-color: #4a90e2;
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    font-size: 1.1rem;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover effect */
+tbody tr:hover {
+    background-color: #e6f2ff;
+    transition: 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    #refreshGradesBtn {
+        width: 90%;
+    }
+}

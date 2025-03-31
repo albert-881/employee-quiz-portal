@@ -1,4 +1,5 @@
 import { createEmployee } from "./backendLogic.js";
+import { getGrades } from "./backendLogic.js";
 
 const logoutBtn = document.querySelector('#logout-btn');
 // Select form elements for user creation
@@ -7,7 +8,7 @@ const userNameInput = document.querySelector('#user-name');
 const userRoleInput = document.querySelector('#user-role');
 const userTempPassword = document.querySelector('#user-password');
 // Select elements for quiz assignment
-
+const gradesBtn = document.querySelector('#grades-btn');
 
 
 // Handle new user creation
@@ -24,3 +25,8 @@ logoutBtn.addEventListener('click', (e) => {
     window.location.href = 'index.html';
 });
 
+gradesBtn.addEventListener('click', async (e) => {
+    let data = await getGrades();
+    sessionStorage.setItem("grades", JSON.stringify(data));
+    window.location.href = 'grades.html';
+});

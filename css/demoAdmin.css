@@ -46,7 +46,10 @@ input, select, textarea {
     border-radius: 6px;
     font-size: 16px;
 }
-
+#grades-btn{
+    margin-top: 20px;
+    background-color: #4a90e2;
+}
 /* Button Styling */
 .btn {
     background-color: #4CAF50;
