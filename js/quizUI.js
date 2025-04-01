@@ -16,7 +16,7 @@ async function getGrade(answers) {
             correctCount++;
         }
     });
-
+    
     const totalQuestions = storedQuestions.length;
     const score = Math.round((correctCount / totalQuestions) * 100);
 
@@ -105,6 +105,12 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent page refresh
 
+        // Show a confirmation dialog
+        const confirmSubmit = confirm("Are you sure you want to submit?");
+        if (!confirmSubmit) {
+            return; // Exit the function if the user cancels
+        }
+
         document.querySelector(".quiz-container").style.display = "none";
 
         const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
@@ -129,3 +135,4 @@ document.addEventListener("DOMContentLoaded", () => {
         getGrade(answers);
     });
 });
+
