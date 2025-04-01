@@ -5,6 +5,7 @@ const message = document.createElement("p");
 
 // Store quizzes in sessionStorage
 export function storeQuizzes(data) {
+    sessionStorage.removeItem('quizzes');
     sessionStorage.setItem("quizzes", JSON.stringify(data));
 }
 
