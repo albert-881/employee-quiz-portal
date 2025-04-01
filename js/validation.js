@@ -29,10 +29,7 @@ export async function setCredentails() {
     // Retrieve and store user quizzes
     const userQuizzes = await getUserQuizzes(email, role);
 
-    if (userQuizzes.length > 0) {
-        storeQuizzes(userQuizzes);
-        window.location.href = "quiz-list.html"; // Navigate to quiz list
-    } else {
-        console.log("No quizzes found for the user.");
-    }
+    storeQuizzes(userQuizzes);
+    window.location.href = "quiz-list.html"; // Navigate to quiz list
+    
 }

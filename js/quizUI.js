@@ -36,9 +36,18 @@ function getGrade(answers) {
     document.getElementById("closeResultCard").addEventListener("click", async () => {
         resultCard.style.display = "none"; // Close result card
 
+        // Refresh quizzes after quiz completion
         const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
         storeQuizzes(userQuizzes);
-        window.location.href = "quiz-list.html";
+
+        // Clear session storage and fetch quizzes again
+        sessionStorage.removeItem("quizzes");
+
+        // After clearing sessionStorage, get the latest quizzes from the backend
+        const updatedQuizzes = await getUserQuizzes(currUser.email, currUser.role);
+        storeQuizzes(updatedQuizzes); // Store the updated quizzes in sessionStorage
+
+        window.location.href = "quiz-list.html"; // Redirect to the quiz list
     });
 }
 

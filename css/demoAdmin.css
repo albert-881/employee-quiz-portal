@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
 /* Container */
@@ -22,11 +23,13 @@ body {
 h1 {
     color: #333;
     margin-bottom: 30px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 h2 {
     color: #4CAF50;
     margin-bottom: 15px;
+    animation: fadeIn 1.2s ease-in-out;
 }
 
 /* Form Styling */
@@ -36,6 +39,7 @@ h2 {
     border-radius: 10px;
     margin-bottom: 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 1.3s ease-out forwards;
 }
 
 input, select, textarea {
@@ -46,9 +50,25 @@ input, select, textarea {
     border-radius: 6px;
     font-size: 16px;
 }
+
 #grades-btn{
-    margin-top: 20px;
     background-color: #4a90e2;
+    animation: fadeInUp 1.4s ease-out;
+    width: 15%;
+    max-width: 150px;
+    min-width: 100px;
+}
+.top-btns{
+    display:flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+#logout-btn{
+    background-color: red;
+    width:15%;
+    max-width: 150px;
+    min-width: 100px;
 }
 /* Button Styling */
 .btn {
@@ -62,6 +82,7 @@ input, select, textarea {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
     width: 100%;
+    animation: fadeInUp 1.5s ease-out;
 }
 
 .btn:hover {
@@ -101,6 +122,7 @@ select {
 /* Quiz List */
 #quiz-list {
     margin-top: 40px;
+    animation: fadeInUp 1.6s ease-out;
 }
 
 #quiz-list-items {
@@ -115,6 +137,7 @@ select {
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1.7s ease-out;
 }
 
 .quiz-card:hover {
@@ -149,5 +172,14 @@ select {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
