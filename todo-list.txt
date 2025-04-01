@@ -4,7 +4,8 @@ TODO List for Quiz Portal:
     -Add the option for the admin to view any quiz they want.
     -Let admin assign employee a different role if by any chance they intially mistakenly assign the wrong role.
     -Create a timer for the quizzes.
-    -Create a warning message when submit button is clicked.
     -Add security
         -Login Credentials.
         -Quiz answers should not be accessed through session storage in the console. 
+
+    when user submits quiz only make the pop up close button show up when the user gets added to completed by list
