@@ -11,7 +11,6 @@ export function storeQuizzes(data) {
 
 // Store questions in sessionStorage
 export function storeQuestions(questions) {
-    console.table("Storing questions:", questions);
     sessionStorage.setItem("questions", JSON.stringify(questions));
 }
 
@@ -54,7 +53,9 @@ export function showQuizzes() {
 // Display quizzes for the admin panel
 export async function showadminQuizzes() {
     const data = await viewQuizzes();
+    
     const adminquizContainer = document.querySelector("#quiz-list-items");
+    
     if (!adminquizContainer) return;
 
     adminquizContainer.innerHTML = ""; // Clear previous content
@@ -75,8 +76,11 @@ export async function showadminQuizzes() {
         `;
 
         // Handle admin quiz view
-        quizCard.querySelector(".btn").addEventListener("click", () => {
-            alert(`Viewing quiz: ${quiz.quizName.S}`);
+        quizCard.querySelector(".btn").addEventListener("click", async () => {
+            console.log(`Viewing quiz: ${quiz.quizName.S}`);
+            const questions = await getUserQuestions(quiz.id.S);
+            storeQuestions(questions);
+            window.location.href = "startQuiz.html";
         });
 
         adminquizContainer.appendChild(quizCard);

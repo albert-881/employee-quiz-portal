@@ -46,6 +46,14 @@ async function getGrade(answers) {
    Display Questions Dynamically
 ===================================== */
 export function showQuestions() {
+
+    const currUser = sessionStorage.getItem("currUser");
+
+    if (!currUser || currUser === "null" || currUser === "undefined" || currUser.trim() === "") {
+        const submitButton = document.querySelector("#submitQuizButton");
+        submitButton.style.display = 'none';
+    }
+
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
 
@@ -104,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent page refresh
-
+        
         // Show a confirmation dialog
         const confirmSubmit = confirm("Are you sure you want to submit?");
         if (!confirmSubmit) {
