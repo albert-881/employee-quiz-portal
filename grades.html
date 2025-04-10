@@ -5,10 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Grades</title>
     <link rel="stylesheet" href="css/styles3.css">
+    <style>
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls input,
+        .controls select {
+            margin-right: 10px;
+            padding: 6px 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Employee Grades</h1>
+
+    <!-- Filter Controls -->
+    <div class="controls">
+        <!-- Search by Username -->
+        <input type="text" id="employeeSearch" placeholder="Search">
+
+        <!-- Filter by Role -->
+        <select id="roleFilter">
+            <option value="">Filter by Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Employee">Employee</option>
+        </select>
+
+        <!-- Filter by Quiz -->
+        <select id="quizFilter">
+            <option value="">Filter by Quiz</option>
+            <option value="Safety Basics">Safety Basics</option>
+            <option value="HIPAA Training">HIPAA Training</option>
+            <!-- Add more quiz options here -->
+        </select>
+
+        <!-- Sort by Date -->
+        <select id="dateSort">
+            <option value="">Sort by Date</option>
+            <option value="asc">Oldest to Newest</option>
+            <option value="desc">Newest to Oldest</option>
+        </select>
+    </div>
+
+    <!-- Refresh Button -->
     <button id="refreshGradesBtn">Refresh Grades</button>
+
+    <!-- Grades Table -->
     <table>
         <thead>
             <tr>
@@ -23,6 +66,7 @@
             <!-- Grades will be dynamically inserted here -->
         </tbody>
     </table>
+    
     <script type="module" src="js/grades.js"></script>
 </body>
 </html>

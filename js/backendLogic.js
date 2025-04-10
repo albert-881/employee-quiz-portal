@@ -30,7 +30,7 @@ export async function createEmployee(user, pass, role) {
       return data;  
     } else {
       // If the response status is not OK, throw an error
-      const errorData = await response.json();  
+      const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to create employee');
     }
   } catch (error) {
@@ -55,7 +55,7 @@ export async function validateUser(email, password) {
 
     if (!response.ok) {
       console.error("Failed to validate user:", response.statusText);
-      return null; 
+      return null;
     }
 
     let data = await response.json();
@@ -89,7 +89,7 @@ export async function getUserQuizzes(email, role){
     return data;
   }
   catch(error){
-
+    
   }
 }
 
