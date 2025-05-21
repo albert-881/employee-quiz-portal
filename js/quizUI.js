@@ -1,6 +1,5 @@
-import { completeQuiz, getUserQuizzes } from "./backendLogic.js";
+import { completeQuiz, getUserQuizzes, storeGrade } from "./backendLogic.js";
 import { storeQuizzes } from "./ui.js";
-import { storeGrade } from "./backendLogic.js";
 
 /* =====================================
    Calculate Quiz Grade & Show Results
@@ -10,23 +9,37 @@ async function getGrade(answers) {
     let correctCount = 0;
 
     storedQuestions.forEach((question, index) => {
-        const correctAnswer = question.correctAnswer.S;
-        if (answers[`question-${index}`] === correctAnswer) {
-            console.log(`Question ${index} is correct`);
-            correctCount++;
+        const userAnswer = answers[`question-${index}`];
+
+        if (question.questionType?.S === "matching") {
+            const correctList = question.correctAnswer.L.map(i => i.S);
+            let matchCorrect = 0;
+
+            if (Array.isArray(userAnswer)) {
+                userAnswer.forEach((ans, j) => {
+                    if (ans === correctList[j]) {
+                        matchCorrect++;
+                    }
+                });
+            }
+
+            correctCount += matchCorrect / correctList.length; // partial credit
+        } else {
+            const correctAnswer = question.correctAnswer.S;
+            if (userAnswer === correctAnswer) {
+                correctCount++;
+            }
         }
     });
 
     const totalQuestions = storedQuestions.length;
     const score = Math.round((correctCount / totalQuestions) * 100);
 
-    // Display results in result card
     const resultCard = document.getElementById("resultCard");
     const resultMessage = document.getElementById("resultMessage");
     resultMessage.innerHTML = `Correct Answers: ${correctCount}/${totalQuestions}<br><br>Score: ${score}%`;
     resultCard.style.display = "block";
 
-    // Save quiz completion and handle redirection
     const currQuizId = sessionStorage.getItem("currQuizId");
     const currUser = JSON.parse(sessionStorage.getItem("currUser"));
     await completeQuiz(currQuizId, currUser.email);
@@ -34,7 +47,7 @@ async function getGrade(answers) {
     await storeGrade(today, score, currUser.email, currUser.role, currQuizId);
 
     document.getElementById("closeResultCard").addEventListener("click", async () => {
-        resultCard.style.display = "none"; // Close result card
+        resultCard.style.display = "none";
 
         const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
         storeQuizzes(userQuizzes);
@@ -46,7 +59,6 @@ async function getGrade(answers) {
    Display Questions Dynamically
 ===================================== */
 export function showQuestions() {
-
     const currUser = sessionStorage.getItem("currUser");
 
     if (!currUser || currUser === "null" || currUser === "undefined" || currUser.trim() === "") {
@@ -56,7 +68,7 @@ export function showQuestions() {
 
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
-    console.log(storedQuestions);
+
     if (storedQuestions.length === 0) {
         quizForm.innerHTML = "<p>No questions available.</p>";
         return;
@@ -65,16 +77,45 @@ export function showQuestions() {
     storedQuestions.forEach((question, i) => {
         const questionBlock = document.createElement("div");
         questionBlock.classList.add("question-block");
-
-        // Create question header
         questionBlock.innerHTML = `<p><strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong></p>`;
 
-        // Create options container
         const optionsContainer = document.createElement("div");
         optionsContainer.classList.add("options-container");
 
-        // Generate options if available
-        if (Array.isArray(question.options.SS)) {
+        if (question.questionType?.S === "matching") {
+            const prompts = question.matchPrompts.L.map(p => p.S);
+            const options = question.matchOptions.SS;
+
+            prompts.forEach((promptText, j) => {
+                const promptId = `question-${i}-prompt-${j}`;
+                const promptContainer = document.createElement("div");
+                promptContainer.classList.add("prompt-pair");
+
+                const promptLabel = document.createElement("label");
+                promptLabel.innerText = promptText;
+
+                const select = document.createElement("select");
+                select.name = promptId;
+                select.id = promptId;
+
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "";
+                defaultOption.innerText = "-- Select an Option --";
+                select.appendChild(defaultOption);
+
+                options.forEach(option => {
+                    const opt = document.createElement("option");
+                    opt.value = option.split(".")[0]; // use 'A', 'B', etc.
+                    opt.innerText = option;
+                    select.appendChild(opt);
+                });
+
+                promptContainer.appendChild(promptLabel);
+                promptContainer.appendChild(select);
+                optionsContainer.appendChild(promptContainer);
+            });
+
+        } else if (Array.isArray(question.options?.SS)) {
             question.options.SS.forEach((option, j) => {
                 const radioId = `q${i}-option${j}`;
 
@@ -96,7 +137,6 @@ export function showQuestions() {
         questionBlock.appendChild(optionsContainer);
         quizForm.appendChild(questionBlock);
 
-        // ✅ Smooth animation effect for displaying questions
         setTimeout(() => {
             questionBlock.style.opacity = "1";
             questionBlock.style.transform = "translateY(0)";
@@ -111,36 +151,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.querySelector("#submitQuizButton");
 
     submitButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent page refresh
-
+        e.preventDefault();
         const confirmSubmit = confirm("Are you sure you want to submit?");
-        if (!confirmSubmit) {
-            return;
-        }
-
+        if (!confirmSubmit) return;
         submitQuizManually();
     });
 
-    startTimer(); // Start 1-hour countdown
+    startTimer();
 });
 
 /* =====================================
-   Manual Submission Logic (Used by Button and Timer)
+   Manual Submission Logic
 ===================================== */
 function submitQuizManually() {
     document.querySelector(".quiz-container").style.display = "none";
-
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
     const answers = {};
-    
 
-    storedQuestions.forEach((_, index) => {
-        const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-        answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
-
-        
+    storedQuestions.forEach((question, index) => {
+        if (question.questionType?.S === "matching") {
+            const prompts = question.matchPrompts.L;
+            answers[`question-${index}`] = prompts.map((_, j) => {
+                const selected = document.querySelector(`select[name="question-${index}-prompt-${j}"]`);
+                return selected ? selected.value : null;
+            });
+        } else {
+            const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+            answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
+        }
     });
-
 
     getGrade(answers);
 }
@@ -148,7 +187,7 @@ function submitQuizManually() {
 /* =====================================
    Timer Logic (1 Hour Auto-Submit)
 ===================================== */
-let timeLeft = 60 * 1; // 1 hour in seconds
+let timeLeft = 60 * 60;
 
 function formatTime(seconds) {
     const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
