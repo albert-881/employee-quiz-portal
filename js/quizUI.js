@@ -86,19 +86,19 @@ export function showQuestions() {
             const prompts = question.matchPrompts.L.map(p => p.S);
             const options = question.matchOptions.SS;
         
-            // === ADD TO SIDEBAR ===
-            const promptList = document.getElementById("promptList");
-            if (promptList) {
-                const listHeader = document.createElement("li");
-                listHeader.innerHTML = `<strong>Question ${i + 1}</strong>`;
-                promptList.appendChild(listHeader);
-        
-                prompts.forEach((promptText, j) => {
-                    const listItem = document.createElement("li");
-                    listItem.innerText = `${j + 1}. ${promptText}`;
-                    promptList.appendChild(listItem);
-                });
-            }
+           // === SHOW MATCHING OPTIONS ON RIGHT SIDEBAR ===
+    const promptList = document.getElementById("promptList");
+    if (promptList && options?.length > 0) {
+        const listHeader = document.createElement("li");
+        listHeader.innerHTML = `<strong>Question ${i + 1}: Options</strong>`;
+        promptList.appendChild(listHeader);
+
+        options.forEach((optionText, idx) => {
+            const listItem = document.createElement("li");
+            listItem.innerText = optionText;
+            promptList.appendChild(listItem);
+        });
+    }
         
             prompts.forEach((promptText, j) => {
                 const promptId = `question-${i}-prompt-${j}`;
