@@ -217,3 +217,9 @@ button:hover {
 .result-card button:hover {
     background-color: #346aa8;
 }
+
+
+.prompt-pair {
+    margin-bottom: 1rem; /* Adds space under each prompt */
+  }
+  
