@@ -220,6 +220,9 @@ button:hover {
 
 
 .prompt-pair {
-    margin-bottom: 1rem; /* Adds space under each prompt */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* adds space between label and select */
+    margin-bottom: 1.25rem; /* adds space below each prompt+select block */
   }
   
