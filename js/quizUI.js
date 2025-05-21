@@ -85,37 +85,51 @@ export function showQuestions() {
         if (question.questionType?.S === "matching") {
             const prompts = question.matchPrompts.L.map(p => p.S);
             const options = question.matchOptions.SS;
-
+        
+            // === ADD TO SIDEBAR ===
+            const promptList = document.getElementById("promptList");
+            if (promptList) {
+                const listHeader = document.createElement("li");
+                listHeader.innerHTML = `<strong>Question ${i + 1}</strong>`;
+                promptList.appendChild(listHeader);
+        
+                prompts.forEach((promptText, j) => {
+                    const listItem = document.createElement("li");
+                    listItem.innerText = `${j + 1}. ${promptText}`;
+                    promptList.appendChild(listItem);
+                });
+            }
+        
             prompts.forEach((promptText, j) => {
                 const promptId = `question-${i}-prompt-${j}`;
                 const promptContainer = document.createElement("div");
                 promptContainer.classList.add("prompt-pair");
-
+        
                 const promptLabel = document.createElement("label");
                 promptLabel.innerText = promptText;
-
+        
                 const select = document.createElement("select");
                 select.name = promptId;
                 select.id = promptId;
-
+        
                 const defaultOption = document.createElement("option");
                 defaultOption.value = "";
                 defaultOption.innerText = "-- Select an Option --";
                 select.appendChild(defaultOption);
-
+        
                 options.forEach(option => {
                     const opt = document.createElement("option");
                     opt.value = option.split(".")[0]; // use 'A', 'B', etc.
                     opt.innerText = option;
                     select.appendChild(opt);
                 });
-
+        
                 promptContainer.appendChild(promptLabel);
                 promptContainer.appendChild(select);
                 optionsContainer.appendChild(promptContainer);
             });
-
-        } else if (Array.isArray(question.options?.SS)) {
+        }
+         else if (Array.isArray(question.options?.SS)) {
             question.options.SS.forEach((option, j) => {
                 const radioId = `q${i}-option${j}`;
 

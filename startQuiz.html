@@ -8,22 +8,34 @@
     <script type="module" src="js/quizUI.js" defer></script>
 </head>
 <body>
-    <div class="quiz-container">
-        <h1>Medical Calculation Screening</h1>
-        <div class="quiz-timer-container">
-            <div class="quiz-timer-box">
-              ⏰ Time Left: <span id="quizTimer">60:00</span>
+    <div style="display: flex; gap: 2rem; align-items: flex-start; padding: 2rem;">
+        
+        <!-- Left: Quiz Content -->
+        <div class="quiz-container" style="flex: 3;">
+            <h1>Medical Calculation Screening</h1>
+            
+            <div class="quiz-timer-container">
+                <div class="quiz-timer-box">
+                  ⏰ Time Left: <span id="quizTimer">60:00</span>
+                </div>
             </div>
-          </div>
-          
-        <form id="quizForm">
-            <!-- Quiz questions will be dynamically inserted here -->
-        </form>
+            
+            <form id="quizForm">
+                <!-- Quiz questions will be dynamically inserted here -->
+            </form>
 
-        <button id="submitQuizButton">Submit Quiz</button>
+            <button id="submitQuizButton">Submit Quiz</button>
+        </div>
+
+        <!-- Right: Prompt Summary Sidebar -->
+        <aside id="promptSidebar" style="flex: 1; background: #f9f9f9; padding: 1rem; border-left: 1px solid #ccc;">
+            <h3>Prompts</h3>
+            <ul id="promptList" style="list-style-type: none; padding-left: 0;"></ul>
+        </aside>
     </div>
-     <!-- Result Card (Initially Hidden) -->
-     <div id="resultCard" class="result-card">
+
+    <!-- Result Card (Initially Hidden) -->
+    <div id="resultCard" class="result-card">
         <h2>Your Result</h2>
         <p id="resultMessage"></p>
         <button id="closeResultCard">Close</button>
@@ -34,4 +46,5 @@
         document.addEventListener("DOMContentLoaded", showQuestions);
     </script>
 </body>
+
 </html>
