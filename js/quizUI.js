@@ -56,7 +56,7 @@ export function showQuestions() {
 
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
-
+    console.log(storedQuestions);
     if (storedQuestions.length === 0) {
         quizForm.innerHTML = "<p>No questions available.</p>";
         return;
