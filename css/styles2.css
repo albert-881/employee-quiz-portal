@@ -19,6 +19,22 @@ body {
     padding: 20px; /* Prevent content from sticking to the top */
 }
 
+.quiz-timer-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  .quiz-timer-box {
+    background-color: #ffe5e5;     /* light red background */
+    color: #b30000;                /* dark red text */
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+  }
+  
 .quiz-container {
     background-color: white;
     padding: 30px;

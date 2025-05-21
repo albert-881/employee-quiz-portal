@@ -16,7 +16,7 @@ async function getGrade(answers) {
             correctCount++;
         }
     });
-    
+
     const totalQuestions = storedQuestions.length;
     const score = Math.round((correctCount / totalQuestions) * 100);
 
@@ -112,35 +112,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitButton.addEventListener("click", (e) => {
         e.preventDefault(); // Prevent page refresh
-        
-        // Show a confirmation dialog
+
         const confirmSubmit = confirm("Are you sure you want to submit?");
         if (!confirmSubmit) {
-            return; // Exit the function if the user cancels
-        }
-
-        document.querySelector(".quiz-container").style.display = "none";
-
-        const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
-        const answers = {};
-        let allAnswered = true;
-
-        // Collect answers and check if all questions are answered
-        storedQuestions.forEach((_, index) => {
-            const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
-            answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
-
-            if (!selectedOption) {
-                allAnswered = false;
-            }
-        });
-
-        if (!allAnswered) {
-            alert("Please answer all questions before submitting!"); 
             return;
         }
 
-        getGrade(answers);
+        submitQuizManually();
     });
+
+    startTimer(); // Start 1-hour countdown
 });
 
+/* =====================================
+   Manual Submission Logic (Used by Button and Timer)
+===================================== */
+function submitQuizManually() {
+    document.querySelector(".quiz-container").style.display = "none";
+
+    const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
+    const answers = {};
+    
+
+    storedQuestions.forEach((_, index) => {
+        const selectedOption = document.querySelector(`input[name="question-${index}"]:checked`);
+        answers[`question-${index}`] = selectedOption ? selectedOption.value : null;
+
+        
+    });
+
+
+    getGrade(answers);
+}
+
+/* =====================================
+   Timer Logic (1 Hour Auto-Submit)
+===================================== */
+let timeLeft = 60 * 1; // 1 hour in seconds
+
+function formatTime(seconds) {
+    const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const secs = String(seconds % 60).padStart(2, "0");
+    return `${mins}:${secs}`;
+}
+
+function startTimer() {
+    const timerDisplay = document.getElementById("quizTimer");
+    if (!timerDisplay) return;
+
+    timerDisplay.innerText = formatTime(timeLeft);
+
+    const countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = formatTime(timeLeft);
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            alert("Time's up! Submitting your quiz...");
+            submitQuizManually();
+        }
+    }, 1000);
+}
