@@ -69,6 +69,21 @@ export function showQuestions() {
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
 
+    const promptSidebar = document.getElementById("promptSidebar");
+    const promptList = document.getElementById("promptList");
+
+    // 🔽 Check if there are any matching-type questions
+    const hasMatching = storedQuestions.some(q => q.questionType?.S === "matching");
+
+    if (!hasMatching) {
+        // ❌ No matching questions, so hide the prompt sidebar
+        promptSidebar.style.display = "none";
+    } else {
+        // ✅ Matching questions exist, show sidebar and clear prompt list
+        promptSidebar.style.display = "block";
+        promptList.innerHTML = "";
+    }
+
     if (storedQuestions.length === 0) {
         quizForm.innerHTML = "<p>No questions available.</p>";
         return;
@@ -85,51 +100,49 @@ export function showQuestions() {
         if (question.questionType?.S === "matching") {
             const prompts = question.matchPrompts.L.map(p => p.S);
             const options = question.matchOptions.SS;
-        
-           // === SHOW MATCHING OPTIONS ON RIGHT SIDEBAR ===
-    const promptList = document.getElementById("promptList");
-    if (promptList && options?.length > 0) {
-        const listHeader = document.createElement("li");
-        listHeader.innerHTML = `<strong>Question ${i + 1}: Options</strong>`;
-        promptList.appendChild(listHeader);
 
-        options.forEach((optionText, idx) => {
-            const listItem = document.createElement("li");
-            listItem.innerText = optionText;
-            promptList.appendChild(listItem);
-        });
-    }
-        
+            // === SHOW MATCHING OPTIONS ON RIGHT SIDEBAR ===
+            if (promptList && options?.length > 0) {
+                const listHeader = document.createElement("li");
+                listHeader.innerHTML = `<strong>Question ${i + 1}: Options</strong>`;
+                promptList.appendChild(listHeader);
+
+                options.forEach(optionText => {
+                    const listItem = document.createElement("li");
+                    listItem.innerText = optionText;
+                    promptList.appendChild(listItem);
+                });
+            }
+
             prompts.forEach((promptText, j) => {
                 const promptId = `question-${i}-prompt-${j}`;
                 const promptContainer = document.createElement("div");
                 promptContainer.classList.add("prompt-pair");
-        
+
                 const promptLabel = document.createElement("label");
                 promptLabel.innerText = promptText;
-        
+
                 const select = document.createElement("select");
                 select.name = promptId;
                 select.id = promptId;
-        
+
                 const defaultOption = document.createElement("option");
                 defaultOption.value = "";
                 defaultOption.innerText = "-- Select an Option --";
                 select.appendChild(defaultOption);
-        
+
                 options.forEach(option => {
                     const opt = document.createElement("option");
                     opt.value = option.split(".")[0]; // use 'A', 'B', etc.
                     opt.innerText = option;
                     select.appendChild(opt);
                 });
-        
+
                 promptContainer.appendChild(promptLabel);
                 promptContainer.appendChild(select);
                 optionsContainer.appendChild(promptContainer);
             });
-        }
-         else if (Array.isArray(question.options?.SS)) {
+        } else if (Array.isArray(question.options?.SS)) {
             question.options.SS.forEach((option, j) => {
                 const radioId = `q${i}-option${j}`;
 
@@ -157,6 +170,7 @@ export function showQuestions() {
         }, i * 200);
     });
 }
+
 
 /* =====================================
    Handle Quiz Submission
