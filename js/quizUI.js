@@ -110,7 +110,7 @@ export function showQuestions() {
                 options.forEach(optionText => {
                     const listItem = document.createElement("li");
                     listItem.innerText = optionText;
-                    listItem.style.marginBottom = "8px";
+                    listItem.style.marginBottom = "5px";
                     promptList.appendChild(listItem);
                 });
             }
