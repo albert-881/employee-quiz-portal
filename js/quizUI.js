@@ -81,7 +81,7 @@ export function showQuestions() {
 
         // Add question text
         const questionTextElem = document.createElement("p");
-        questionTextElem.innerHTML = `<strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong>`;
+        questionTextElem.innerHTML = `<strong>${question.questionText.S || "No question text available"}</strong>`;
         questionBlock.appendChild(questionTextElem);
 
         const optionsContainer = document.createElement("div");
