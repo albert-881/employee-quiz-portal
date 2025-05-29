@@ -11,7 +11,7 @@ async function getGrade(answers) {
     storedQuestions.forEach((question, index) => {
         const userAnswer = answers[`question-${index}`];
 
-        if (question.questionType?.S === "matching") {
+        if (question.questionType?.S === "dropdown") {
             const correctList = question.correctAnswer.L.map(i => i.S);
             let matchCorrect = 0;
 
@@ -97,7 +97,7 @@ export function showQuestions() {
         const optionsContainer = document.createElement("div");
         optionsContainer.classList.add("options-container");
 
-        if (question.questionType?.S === "matching") {
+        if (question.questionType?.S === "dropdown") {
             const prompts = question.matchPrompts.L.map(p => p.S);
             const options = question.matchOptions.SS;
 
@@ -198,7 +198,7 @@ function submitQuizManually() {
     const answers = {};
 
     storedQuestions.forEach((question, index) => {
-        if (question.questionType?.S === "matching") {
+        if (question.questionType?.S === "dropdown") {
             const prompts = question.matchPrompts.L;
             answers[`question-${index}`] = prompts.map((_, j) => {
                 const selected = document.querySelector(`select[name="question-${index}-prompt-${j}"]`);
