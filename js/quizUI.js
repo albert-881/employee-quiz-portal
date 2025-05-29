@@ -60,6 +60,7 @@ async function getGrade(answers) {
 ===================================== */
 export function showQuestions() {
     const currUser = sessionStorage.getItem("currUser");
+    console.log("Stored Questions Length:", storedQuestions.length);
 
     if (!currUser || currUser === "null" || currUser === "undefined" || currUser.trim() === "") {
         const submitButton = document.querySelector("#submitQuizButton");
