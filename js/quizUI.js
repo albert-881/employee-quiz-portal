@@ -73,7 +73,7 @@ export function showQuestions() {
     const promptList = document.getElementById("promptList");
 
     // 🔽 Check if there are any matching-type questions
-    const hasMatching = storedQuestions.some(q => q.questionType?.S === "matching");
+    const hasMatching = storedQuestions.some(q => q.questionType?.S === "dropdown");
 
     if (!hasMatching) {
         // ❌ No matching questions, so hide the prompt sidebar
