@@ -48,7 +48,6 @@ async function getGrade(answers) {
 
     document.getElementById("closeResultCard").addEventListener("click", async () => {
         resultCard.style.display = "none";
-
         const userQuizzes = await getUserQuizzes(currUser.email, currUser.role);
         storeQuizzes(userQuizzes);
         window.location.href = "quiz-list.html";
@@ -60,7 +59,6 @@ async function getGrade(answers) {
 ===================================== */
 export function showQuestions() {
     const currUser = sessionStorage.getItem("currUser");
-    console.log("Stored Questions Length:", storedQuestions.length);
 
     if (!currUser || currUser === "null" || currUser === "undefined" || currUser.trim() === "") {
         const submitButton = document.querySelector("#submitQuizButton");
@@ -86,14 +84,6 @@ export function showQuestions() {
         questionTextElem.innerHTML = `<strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong>`;
         questionBlock.appendChild(questionTextElem);
 
-        // Add diagram image from local 'diagrams' folder
-        const diagramImg = document.createElement("img");
-        diagramImg.src = `diagrams/Picture${i + 1}.png`;
-        diagramImg.alt = `Diagram for question ${i + 1}`;
-        diagramImg.style.maxWidth = "100%";
-        diagramImg.style.margin = "10px 0";
-        questionBlock.appendChild(diagramImg);
-
         const optionsContainer = document.createElement("div");
         optionsContainer.classList.add("options-container");
 
@@ -105,14 +95,23 @@ export function showQuestions() {
                 const promptId = `question-${i}-prompt-${j}`;
                 const promptContainer = document.createElement("div");
                 promptContainer.classList.add("prompt-pair");
-                promptContainer.style.marginBottom = "1rem";
+                promptContainer.style.marginBottom = "2rem";
 
+                // Add image for each prompt
+                const diagramImg = document.createElement("img");
+                diagramImg.src = `diagrams/Picture${j + 1}.png`;
+                diagramImg.alt = `Diagram for prompt ${promptText}`;
+                diagramImg.style.maxWidth = "100%";
+                diagramImg.style.margin = "10px 0";
+
+                // Prompt label
                 const promptLabel = document.createElement("label");
                 promptLabel.innerText = promptText;
                 promptLabel.setAttribute("for", promptId);
                 promptLabel.style.display = "block";
                 promptLabel.style.marginBottom = "0.25rem";
 
+                // Dropdown
                 const select = document.createElement("select");
                 select.name = promptId;
                 select.id = promptId;
@@ -126,11 +125,12 @@ export function showQuestions() {
 
                 options.forEach(option => {
                     const opt = document.createElement("option");
-                    opt.value = option.split(".")[0]; // 'A', 'B', etc.
+                    opt.value = option.split(".")[0]; // A, B, C...
                     opt.innerText = option;
                     select.appendChild(opt);
                 });
 
+                promptContainer.appendChild(diagramImg);
                 promptContainer.appendChild(promptLabel);
                 promptContainer.appendChild(select);
                 optionsContainer.appendChild(promptContainer);
