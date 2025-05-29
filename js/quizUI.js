@@ -69,9 +69,6 @@ export function showQuestions() {
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
 
-    
-
-    
     if (storedQuestions.length === 0) {
         quizForm.innerHTML = "<p>No questions available.</p>";
         return;
@@ -80,7 +77,21 @@ export function showQuestions() {
     storedQuestions.forEach((question, i) => {
         const questionBlock = document.createElement("div");
         questionBlock.classList.add("question-block");
-        questionBlock.innerHTML = `<p><strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong></p>`;
+        questionBlock.style.opacity = "0";
+        questionBlock.style.transform = "translateY(20px)";
+
+        // Add question text
+        const questionTextElem = document.createElement("p");
+        questionTextElem.innerHTML = `<strong>${i + 1}. ${question.questionText.S || "No question text available"}</strong>`;
+        questionBlock.appendChild(questionTextElem);
+
+        // Add diagram image from local 'diagrams' folder
+        const diagramImg = document.createElement("img");
+        diagramImg.src = `diagrams/Picture${i + 1}.png`;
+        diagramImg.alt = `Diagram for question ${i + 1}`;
+        diagramImg.style.maxWidth = "100%";
+        diagramImg.style.margin = "10px 0";
+        questionBlock.appendChild(diagramImg);
 
         const optionsContainer = document.createElement("div");
         optionsContainer.classList.add("options-container");
@@ -89,31 +100,23 @@ export function showQuestions() {
             const prompts = question.matchPrompts.L.map(p => p.S);
             const options = question.matchOptions.SS;
 
-            // === SHOW MATCHING OPTIONS ON RIGHT SIDEBAR ===
-            if (promptList && options?.length > 0) {
-                const listHeader = document.createElement("li");
-                listHeader.innerHTML = `<strong>Question ${i + 1}: Options</strong>`;
-                promptList.appendChild(listHeader);
-
-                options.forEach(optionText => {
-                    const listItem = document.createElement("li");
-                    listItem.innerText = optionText;
-                    listItem.style.marginBottom = "5px";
-                    promptList.appendChild(listItem);
-                });
-            }
-
             prompts.forEach((promptText, j) => {
                 const promptId = `question-${i}-prompt-${j}`;
                 const promptContainer = document.createElement("div");
                 promptContainer.classList.add("prompt-pair");
+                promptContainer.style.marginBottom = "1rem";
 
                 const promptLabel = document.createElement("label");
                 promptLabel.innerText = promptText;
+                promptLabel.setAttribute("for", promptId);
+                promptLabel.style.display = "block";
+                promptLabel.style.marginBottom = "0.25rem";
 
                 const select = document.createElement("select");
                 select.name = promptId;
                 select.id = promptId;
+                select.style.width = "100%";
+                select.style.padding = "0.4rem";
 
                 const defaultOption = document.createElement("option");
                 defaultOption.value = "";
@@ -122,7 +125,7 @@ export function showQuestions() {
 
                 options.forEach(option => {
                     const opt = document.createElement("option");
-                    opt.value = option.split(".")[0]; // use 'A', 'B', etc.
+                    opt.value = option.split(".")[0]; // 'A', 'B', etc.
                     opt.innerText = option;
                     select.appendChild(opt);
                 });
@@ -147,19 +150,20 @@ export function showQuestions() {
 
                 optionsContainer.appendChild(optionInput);
                 optionsContainer.appendChild(optionLabel);
+                optionsContainer.appendChild(document.createElement("br"));
             });
         }
 
         questionBlock.appendChild(optionsContainer);
         quizForm.appendChild(questionBlock);
 
+        // Animate question appearance
         setTimeout(() => {
             questionBlock.style.opacity = "1";
             questionBlock.style.transform = "translateY(0)";
         }, i * 200);
     });
 }
-
 
 /* =====================================
    Handle Quiz Submission
