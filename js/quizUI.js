@@ -69,21 +69,9 @@ export function showQuestions() {
     const quizForm = document.getElementById("quizForm");
     const storedQuestions = JSON.parse(sessionStorage.getItem("questions")) || [];
 
-    const promptSidebar = document.getElementById("promptSidebar");
-    const promptList = document.getElementById("promptList");
+    
 
-    // 🔽 Check if there are any matching-type questions
-    const hasMatching = storedQuestions.some(q => q.questionType?.S === "dropdown");
-
-    if (!hasMatching) {
-        // ❌ No matching questions, so hide the prompt sidebar
-        promptSidebar.style.display = "none";
-    } else {
-        // ✅ Matching questions exist, show sidebar and clear prompt list
-        promptSidebar.style.display = "block";
-        promptList.innerHTML = "";
-    }
-
+    
     if (storedQuestions.length === 0) {
         quizForm.innerHTML = "<p>No questions available.</p>";
         return;
