@@ -1,45 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Calculation Screening</title>
-    <link rel="stylesheet" href="css/styles2.css">
-    <script type="module" src="js/quizUI.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employee Quizzes</title>
+  <link rel="stylesheet" href="css/styles1.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #4a90e2;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    #logout-btn {
+      float: right;
+      margin-top: -50px;
+      margin-right: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    #quiz-list {
+      display: grid;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .quiz-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .quiz-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .quiz-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .quiz-card p {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .start-btn {
+      background-color: #4a90e2;
+      color: white;
+      padding: 10px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.25s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #357abd;
+      transform: scale(1.04);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      .quiz-card h3 {
+        font-size: 18px;
+      }
+
+      .quiz-card p {
+        font-size: 14px;
+      }
+
+      .start-btn {
+        font-size: 14px;
+        padding: 8px 14px;
+      }
+
+      #logout-btn {
+        float: none;
+        display: block;
+        margin: 15px auto 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div style="display: flex; gap: 2rem; align-items: flex-start; padding: 2rem;">
-        
-        <!-- Left: Quiz Content -->
-        <div class="quiz-container" style="flex: 3;">
-            <h1>Medical Calculation Screening</h1>
-            
-            <div class="quiz-timer-container">
-                <div class="quiz-timer-box">
-                  ⏰ Time Left: <span id="quizTimer">60:00</span>
-                </div>
-            </div>
-            
-            <form id="quizForm">
-                <!-- Quiz questions will be dynamically inserted here -->
-            </form>
+  <header>
+    <h1>Employee Quizzes</h1>
+    <button id="logout-btn" class="start-btn">Logout</button>
+  </header>
 
-            <button id="submitQuizButton">Submit Quiz</button>
-        </div>
-
-      
-
-    <!-- Result Card (Initially Hidden) -->
-    <div id="resultCard" class="result-card">
-        <h2>Your Result</h2>
-        <p id="resultMessage"></p>
-        <button id="closeResultCard">Close</button>
+  <main class="container">
+    <div id="quiz-list">
+      <!-- Quiz cards will be injected here -->
     </div>
+  </main>
 
-    <script type="module">
-        import { showQuestions } from "./js/quizUI.js";
-        document.addEventListener("DOMContentLoaded", showQuestions);
-    </script>
+  <script type="module">
+    import { showQuizzes } from "./js/ui.js";
+    document.addEventListener("DOMContentLoaded", showQuizzes);
+  </script>
 </body>
-
 </html>
